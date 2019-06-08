@@ -18,8 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/carteira', 'walletController@index')->name('wallet');
-Route::get('/produto', 'productController@index')->name('product');
-Route::get('/categoria', 'categoryController@index')->name('category');
-Route::get('/relatorios', 'reportController@index')->name('report');
+Route::get('/carteira', 'walletController@index')->name('wallet')->middleware('auth');
+Route::get('/produto', 'productController@index')->name('product')->middleware('auth');
+Route::get('/categoria', 'categoryController@index')->name('category')->middleware('auth');
+Route::get('/relatorios', 'reportController@index')->name('report')->middleware('auth');
 
