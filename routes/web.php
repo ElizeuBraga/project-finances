@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/carteira', 'walletController@index')->name('wallet');
+Route::get('/produto', 'productController@index')->name('product');
+Route::get('/categoria', 'categoryController@index')->name('category');
+Route::get('/relatorios', 'reportController@index')->name('report');
+

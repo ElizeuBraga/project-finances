@@ -13,7 +13,7 @@
         <style>
             html, body {
                 background-color: #fff;
-                color: #636b6f;
+                color: #1542E8;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -49,7 +49,7 @@
             }
 
             .links > a {
-                color: #636b6f;
+                color: #EB3F25;
                 padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;
@@ -85,13 +85,10 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <a href="{{route('wallet')}}">Carteira</a>
+                    <a href="{{route('category')}}">Categorias</a>
+                    <a href="{{route('product')}}">Produtos</a>
+                    <a href="{{route('report')}}">Relatorios</a>
                 </div>
             </div>
         </div>
