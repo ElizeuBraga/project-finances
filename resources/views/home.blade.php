@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+            <div class="card-header">Seja bem vindo <b>{{Auth::user()->name}}</b>!</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    Aqui teremos controle das finanças pessoais e com o passar do tempo teremos noovidades :)
                 </div>
             </div>
         </div>
