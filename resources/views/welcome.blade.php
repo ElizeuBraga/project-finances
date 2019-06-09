@@ -7,15 +7,15 @@
         <title>Laravel</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Righteous&display=swa" rel="stylesheet">
 
         <!-- Styles -->
         <style>
             html, body {
                 background-color: #fff;
                 color: #1542E8;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
+                font-family: 'Righteous', cursive;
+                font-weight: 500;
                 height: 100vh;
                 margin: 0;
             }
@@ -80,8 +80,8 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Finanças
+                <div class="">
+                    <img src="imgs/red-pig.svg" alt="" style="display: inline-block; width:400px">
                 </div>
 
                 <div class="links">
