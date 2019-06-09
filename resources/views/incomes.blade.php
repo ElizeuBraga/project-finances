@@ -13,11 +13,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <p>Olá {{$userName}} hoje é {{$day}}</p>
                     <p>Diga pra mim por gentileza, quanto ganhou hoje?</p>
-                    <form action="{{route('incomes')}}" method="POST">
+                    <form action="{{route('income')}}" method="POST">
                         <div class="form-group">
                             @csrf
+                        <input type="text" value="{{Auth::user()->id}}" name="user_id">
                             <input class="form-control" type="text" name="name" placeholder="Diga uma fonte de renda"><br>
                             <button class="form-control" type="submit">Enviar</button> 
                         </div>
