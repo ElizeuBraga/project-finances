@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\wallet;
+use DB;
 
 class walletController extends Controller
 {
@@ -13,8 +17,16 @@ class walletController extends Controller
      */
     public function index()
     {
-        //
-        return view('wallet');
+        $dataAt = now();
+        $userName = Auth::user()->name;
+        setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+        // date_default_timezone_set('America/Sao_Paulo');
+        $day =  strftime('%A, %d de %B de %Y', strtotime('today'));
+
+        $incomes = DB::table('incomes')->select('id','name')->get();
+        $reports = DB::table('wallets')->select('id', 'money', 'created_at')->get();
+
+        return view('wallet', ['userName'=>$userName, 'day' => $day], compact('incomes', 'reports'));
     }
 
     /**
@@ -24,7 +36,7 @@ class walletController extends Controller
      */
     public function create()
     {
-        //
+        return view('wallet');
     }
 
     /**
@@ -36,6 +48,11 @@ class walletController extends Controller
     public function store(Request $request)
     {
         //
+        $input = Input::all();
+        $wallet = new wallet();
+        $wallet -> fill($input);
+        $wallet->save();
+        return redirect('/carteira');
     }
 
     /**
@@ -80,6 +97,8 @@ class walletController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $wallet = Wallet::find($id);
+        $wallet->delete();
+        return redirect('/carteira');
     }
 }
