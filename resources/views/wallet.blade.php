@@ -20,11 +20,11 @@
                             @csrf
                             <input type="hidden" name="user_id" value="{{Auth::user()->id}}" id="">
                             <select name="income_id" class="form-control" required>
-                                @foreach ($incomes as $income)
                                 <option value="">Fontes de Renda</option>
+                            @foreach ($incomes as $income)
                                 <option value="{{$income->id}}">{{$income->name}}</option>
-                            </select><br>
                             @endforeach
+                            </select><br>
                             <input class="form-control" type="text" name="money" placeholder="Quanto ganhou hoje?"><br>
                             <button class="form-control" type="submit">Enviar</button> 
                         </div>

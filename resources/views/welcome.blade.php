@@ -8,6 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Righteous&display=swa" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
         <!-- Styles -->
         <style>
@@ -61,6 +62,11 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .col-md-4 > a > img {
+                padding: 30px;
+                width: 200px;
+            }
         </style>
     </head>
     <body>
@@ -84,11 +90,28 @@
                     <img src="imgs/red-pig.svg" alt="" style="display: inline-block; width:400px">
                 </div>
 
-                <div class="links">
-                <a href="{{route('wallet')}}">Carteira</a>
+                {{-- <div class="links">
+                    <a href="{{route('wallet')}}">Carteira</a>
                     <a href="{{route('category')}}">Categorias</a>
                     <a href="{{route('product')}}">Produtos</a>
                     <a href="{{route('report')}}">Relatorios</a>
+                </div> --}}
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="{{route('wallet')}}">
+                            <img src="imgs/wallet.svg" alt="">
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="#">
+                            <img src="imgs/wallet.svg" alt="">
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="#">
+                            <img src="imgs/wallet.svg" alt="">
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

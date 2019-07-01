@@ -19,12 +19,19 @@ class walletController extends Controller
     {
         // $dataAt = now();
         $userName = Auth::user()->name;
+        $userId = Auth::user()->id;
         setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
         // date_default_timezone_set('America/Sao_Paulo');
         $day =  strftime('%A, %d de %B de %Y', strtotime('today'));
 
-        $incomes = DB::table('incomes')->select('id','name')->get();
-        $reports = DB::table('wallets')->select('id', 'money', 'created_at')->get();
+        $incomes = DB::table('incomes')
+        ->select('id','name')
+        ->where('user_id', '=', $userId)
+        ->get();
+
+        $reports = DB::table('wallets')
+        ->select('id', 'money', 'created_at')
+        ->get();
 
         return view('wallet', ['userName'=>$userName, 'day' => $day], compact('incomes', 'reports'));
     }

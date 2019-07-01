@@ -39,9 +39,9 @@ class IncomesController extends Controller
     public function store(Request $request)
     {
         $input = Input::all();
-        $wallet = new Incomes();
-        $wallet -> fill($input);
-        $wallet->save();
+        $incomes = new Incomes();
+        $incomes -> fill($input);
+        $incomes ->save();
         return redirect('/carteira');
     }
 
