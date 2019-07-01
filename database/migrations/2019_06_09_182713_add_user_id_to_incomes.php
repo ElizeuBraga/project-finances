@@ -15,7 +15,7 @@ class AddUserIdToIncomes extends Migration
     {
         Schema::table('incomes', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->after('name');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -26,8 +26,6 @@ class AddUserIdToIncomes extends Migration
      */
     public function down()
     {
-        Schema::table('incomes', function (Blueprint $table) {
-            $table->dropForeign('user_id');
-        });
+        Schema::dropIfExists('incomes');
     }
 }
