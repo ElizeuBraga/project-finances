@@ -18,7 +18,11 @@ class CreateWalletsTable extends Migration
             $table->double('money');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('incomes_id');
+            $table->foreign('incomes_id')->references('id')->on('incomes');
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 
