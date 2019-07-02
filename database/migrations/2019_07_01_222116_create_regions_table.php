@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFreelancesTable extends Migration
+class CreateRegionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateFreelancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('freelances', function (Blueprint $table) {
+        Schema::create('regions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('description');
+            $table->string('name');
             $table->double('price');
-            $table->string('observation')->nullable();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateFreelancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('freelances');
+        Schema::dropIfExists('regions');
     }
 }
