@@ -23,7 +23,8 @@ Route::post('/carteira', 'walletController@store')->name('wallet')->middleware('
 Route::get('/fontes', 'IncomesController@create')->name('income')->middleware('auth');
 Route::post('/fontes', 'IncomesController@store')->name('income')->middleware('auth');
 Route::post('/carteira/{id}', 'walletController@destroy')->middleware('auth');
-Route::get('/produto', 'productController@index')->name('product')->middleware('auth');
+Route::get('/produto', 'ProductController@index')->name('product')->middleware('auth');
+Route::post('/produto', 'ProductController@store')->name('product.submit')->middleware('auth');
 Route::get('/categoria', 'categoryController@index')->name('category')->middleware('auth');
 Route::get('/relatorios', 'reportController@index')->name('report')->middleware('auth');
 Route::get('/freelances', 'FreelanceController@create')->name('freelances')->middleware('auth');

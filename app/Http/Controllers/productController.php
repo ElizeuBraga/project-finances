@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Product;
 
-class productController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +35,11 @@ class productController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = new Product();
+        $product->name = $request['name'];
+        $product->save();
+
+        return redirect()->back()->with('success', 'Salvo com sucesso');
     }
 
     /**

@@ -14,7 +14,12 @@
                         </div>
                     @endif
 
-                    Você está em produtos!
+                    <form action="{{route('product.submit')}}" method="POST">
+                        @csrf
+                        @method('POST')
+                        <input type="text" name="name">
+                        <button type="submit">Salvar</button>
+                    </form>
                 </div>
             </div>
         </div>
