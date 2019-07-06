@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Expense;
 use Auth;
+use DB;
 
 class ExpenseController extends Controller
 {
@@ -18,6 +19,12 @@ class ExpenseController extends Controller
         return view('expenses');
     }
 
+
+
+    // public function products(){
+    //     return $this->belongsTo('App\Products');
+    // }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -26,7 +33,14 @@ class ExpenseController extends Controller
     public function create()
     {
         $products = \App\Product::all();
-        return view('expenses', compact('products'));        
+        // $expenses = \App\Expense::all();
+        $expenses = DB::table('expenses')
+        ->join('products', 'expenses.product_id', '=', 'products.id')
+        ->join('users', 'expenses.user_id', '=', 'users.id')
+        ->select('products.name', 'expenses.price')
+        ->where('users.id', '=', Auth::user()->id)
+        ->get();
+        return view('expenses', compact('products', 'expenses'));        
     }
 
     /**
