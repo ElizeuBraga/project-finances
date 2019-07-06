@@ -38,6 +38,7 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
         $exoense = new Expense();
+        $request['price'] = str_replace(',', '.', $request['price']);
         $exoense->price = $request['price'];
         $exoense->product_id = $request['product_id'];
         $exoense->user_id = Auth::user()->id;

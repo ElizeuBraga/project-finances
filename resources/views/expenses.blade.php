@@ -25,7 +25,7 @@
                                     @endforeach
                                 </select>
                                 <br>
-                                <input class="form-control" type="text" name="price">
+                                <input class="dinheiro form-control" type="text" name="price">
                                 <br>
                                 <button class="btn btn-primary btn-lg col-md" type="submit">Salvar</button>
                             </form>
