@@ -15,12 +15,11 @@ class CreateExpensesTable extends Migration
     {
         Schema::create('expenses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
             $table->double('price');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();
             $table->softDeletes();
         });
