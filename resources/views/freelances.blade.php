@@ -17,13 +17,17 @@
                     <form action="/freelances" method="POST">
                         @csrf
                         @method('POST')
-                        <select>
-                            @foreach ($collection as $item)
-                        <option value="{{}}"></option>
+                        <select name="region|price">
+                        <option>Selecione</option>
+                            @foreach ($regions as $region)
+                            <option value="[{{$region->name}},{{$region->price}}]">
+                                {{$region->name}}
+                                {{-- <input type="text" value="{{$region->price}}">                             --}}
+                            </option>
                             @endforeach
                         </select>
-                        <input type="text" name="description">
-                        <input type="text" name="price">
+                        {{-- <input type="text" name="obs"> --}}
+                        {{-- <input type="text" name="price"> --}}
                         <button type="submit">Salvar</button>
                     </form>
                 </div>

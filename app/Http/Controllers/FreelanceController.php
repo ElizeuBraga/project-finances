@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Freelance;
 use Illuminate\Support\Facades\Auth;
-
+use DB;
 class FreelanceController extends Controller
 {
     /**
@@ -25,7 +25,8 @@ class FreelanceController extends Controller
      */
     public function create()
     {
-        //
+        $regions = DB::table('regions')->get();
+        return view('freelances', compact('regions'));        
     }
 
     /**
@@ -37,7 +38,7 @@ class FreelanceController extends Controller
     public function store(Request $request)
     {
         $freelance = new Freelance();
-        $freelance->description = $request["description"];
+        $freelance->region = $request["region"];
         $freelance->price = $request["price"];
         $freelance->user_id = Auth::user()->id;
         $freelance->save();

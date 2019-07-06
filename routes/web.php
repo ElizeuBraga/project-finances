@@ -26,6 +26,6 @@ Route::post('/carteira/{id}', 'walletController@destroy')->middleware('auth');
 Route::get('/produto', 'productController@index')->name('product')->middleware('auth');
 Route::get('/categoria', 'categoryController@index')->name('category')->middleware('auth');
 Route::get('/relatorios', 'reportController@index')->name('report')->middleware('auth');
-Route::get('/freelances', 'freelanceController@index')->name('freelances')->middleware('auth');
-Route::post('/freelances', 'freelanceController@store')->name('freelances.submit')->middleware('auth');
+Route::get('/freelances', 'FreelanceController@create')->name('freelances')->middleware('auth');
+Route::post('/freelances', 'FreelanceController@store')->name('freelances.submit')->middleware('auth');
 

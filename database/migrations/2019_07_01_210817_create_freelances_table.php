@@ -15,9 +15,9 @@ class CreateFreelancesTable extends Migration
     {
         Schema::create('freelances', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('description');
+            $table->string('region');
             $table->double('price');
-            $table->string('observation')->nullable();
+            $table->string('obs')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
