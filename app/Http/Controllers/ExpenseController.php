@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Expense;
+use Auth;
 
 class ExpenseController extends Controller
 {
@@ -23,7 +25,8 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        //
+        $products = \App\Product::all();
+        return view('expenses', compact('products'));        
     }
 
     /**
@@ -34,7 +37,13 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $exoense = new Expense();
+        $exoense->price = $request['price'];
+        $exoense->product_id = $request['product_id'];
+        $exoense->user_id = Auth::user()->id;
+        $exoense->save();
+
+        return redirect()->back()->with('success', 'Salvo com sucesso');
     }
 
     /**

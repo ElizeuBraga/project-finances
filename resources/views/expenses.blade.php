@@ -13,7 +13,18 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    Despesas
+                    <form action="{{route('expenses.submit')}}" method="POST">
+                        @csrf
+                        @method('POST')
+                        <select name="product_id" id="">
+                            <option value="">Selecione</option>
+                            @foreach ($products as $product)
+                        <option value="{{$product->id}}">{{$product->name}}</option>
+                            @endforeach
+                        </select>
+                        <input type="text" name="price">
+                        <button type="submit">Salvar</button>
+                    </form>
                 </div>
             </div>
         </div>
