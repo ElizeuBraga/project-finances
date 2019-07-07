@@ -51,7 +51,7 @@
                                 @foreach($expenses as $expense)
                                 <tr>
                                     <td>{{$expense->name}}</td>
-                                    {{-- <td>{{$expense->category_name}}</td> --}}
+                                    <td>{{$expense->category_name}}</td>
                                     <td><b>R$</b> {{ number_format($expense->price, 2)}}</td>
                                 </tr>
                                 @endforeach

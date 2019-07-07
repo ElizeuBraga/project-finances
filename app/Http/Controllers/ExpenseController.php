@@ -32,26 +32,26 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        // $products = \App\Product::all();
         $products = DB::table('products')
         ->join('users', 'products.user_id', '=', 'users.id')
         ->select('products.id', 'products.name')
         ->where('products.user_id', '=', Auth::user()->id)
         ->get();
 
-        // return var_dump($products);
-        // $expenses = \App\Expense::all();
+        $date = now();
+        $processdate = explode("-", $date);
+        $month = $processdate[1];
+
         $expenses = DB::table('expenses')
         ->join('products', 'expenses.product_id', '=', 'products.id')
         ->join('users', 'expenses.user_id', '=', 'users.id')
-        // ->join('categories', 'products.category_id', '=', 'categories.id')
-        ->select('products.name', 'expenses.price')
+        ->join('categories', 'products.category_id', '=', 'categories.id')
+        ->select('products.name', 'expenses.price', 'categories.name as category_name')
         ->where('users.id', '=', Auth::user()->id)
-        // ->orderBy('category_name')
+        ->whereMonth('expenses.created_at', '=', $month)
+        ->orderBy('category_name')
         ->get();
-
-        // return var_dump($expenses);
-
+        
         $total_price = $expenses->sum('price');
 
         return view('expenses', compact('products', 'total_price', 'expenses'));        
