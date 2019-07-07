@@ -14,7 +14,7 @@ class AddCategoryIdToProducts extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->unsignedBigInteger('category_id')->after('name');
+            $table->unsignedBigInteger('category_id')->after('name')->nullable();
             $table->foreign('category_id')->references('id')->on('categories');
         });
     }
@@ -27,7 +27,7 @@ class AddCategoryIdToProducts extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumnIfExists('category_id');
+            $table->dropColumn('category_id');
         });
     }
 }
