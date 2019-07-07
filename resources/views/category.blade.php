@@ -8,13 +8,16 @@
                 <div class="card-header">Categorias</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    Você está em categorias!
+                        <form action="{{route('category.submit')}}" method="POST">
+                                <div class="for-group">
+                                    @csrf
+                                    @method('POST')
+                                    <label class="">Nome da categoria</label>
+                                    <input class="form-control" type="text" name="name" required>
+                                    <br>
+                                    <button class="form-control btn btn-primary" type="submit">Salvar</button>
+                                </div>
+                            </form>
                 </div>
             </div>
         </div>

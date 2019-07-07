@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
 
-class categoryController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,6 +25,7 @@ class categoryController extends Controller
     public function create()
     {
         //
+        return view('category');
     }
 
     /**
@@ -34,7 +36,11 @@ class categoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new Category();
+        $category->name = $request['name'];
+        $category->save();
+
+        return redirect()->back()->with('success', 'Salvo com sucesso');
     }
 
     /**
