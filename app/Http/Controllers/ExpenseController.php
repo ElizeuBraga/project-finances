@@ -32,7 +32,14 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        $products = \App\Product::all();
+        // $products = \App\Product::all();
+        $products = DB::table('products')
+        ->join('users', 'products.user_id', '=', 'users.id')
+        ->select('products.id', 'products.name')
+        ->where('products.user_id', '=', Auth::user()->id)
+        ->get();
+
+        // return var_dump($products);
         // $expenses = \App\Expense::all();
         $expenses = DB::table('expenses')
         ->join('products', 'expenses.product_id', '=', 'products.id')

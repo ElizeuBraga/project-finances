@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Category;
 use Auth;
 
 class ProductController extends Controller
@@ -25,7 +26,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = \App\Category::all();
+        return view('product', compact('categories'));
     }
 
     /**
@@ -38,6 +40,7 @@ class ProductController extends Controller
     {
         $product = new Product();
         $product->name = $request['name'];
+        $product->category_id = $request['category_id'];
         $product->user_id = Auth::user()->id;
         $product->save();
 
