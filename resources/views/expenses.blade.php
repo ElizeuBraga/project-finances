@@ -31,6 +31,9 @@
                             <input class="dinheiro form-control" type="text" name="price" required>
                             <br>
                             <button class="btn btn-primary btn-lg col-md" type="submit">Salvar</button>
+                            <br>
+                            <br>
+                            <a name="" id="" class="btn btn-primary btn-lg col-md" href="{{route('product')}}" role="button">Novo produto</a>
                     </form>
                 </div>
                 <div class="card-body">
@@ -52,8 +55,8 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-@endsection
+    @endsection
