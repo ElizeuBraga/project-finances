@@ -47,8 +47,10 @@ class ExpenseController extends Controller
         ->join('categories', 'products.category_id', '=', 'categories.id')
         ->select('products.name', 'expenses.price', 'categories.name as category_name')
         ->where('users.id', '=', Auth::user()->id)
-        ->orderBy('category_name')
+        // ->orderBy('category_name')
         ->get();
+
+        // return var_dump($expenses);
 
         $total_price = $expenses->sum('price');
 
