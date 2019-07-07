@@ -44,10 +44,15 @@ class ExpenseController extends Controller
         $expenses = DB::table('expenses')
         ->join('products', 'expenses.product_id', '=', 'products.id')
         ->join('users', 'expenses.user_id', '=', 'users.id')
-        ->select('products.name', 'expenses.price')
+        ->join('categories', 'products.category_id', '=', 'categories.id')
+        ->select('products.name', 'expenses.price', 'categories.name as category_name')
         ->where('users.id', '=', Auth::user()->id)
+        ->orderBy('category_name')
         ->get();
-        return view('expenses', compact('products', 'expenses'));        
+
+        $total_price = $expenses->sum('price');
+
+        return view('expenses', compact('products', 'total_price', 'expenses'));        
     }
 
     /**

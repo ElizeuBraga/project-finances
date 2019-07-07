@@ -31,8 +31,8 @@
     <style>
         html, body {
                 background-color: #fff;
-                color: #1542E8;
-                font-family: 'Righteous', cursive;
+                /* color: #1542E8; */
+                font-family: 'Arial', cursive;
                 font-weight: 500;
                 height: 100vh;
                 margin: 0;
@@ -115,9 +115,6 @@
                         @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('expenses')}}">Gastos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('wallet')}}">Carteira</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('report')}}">Relatórios</a>

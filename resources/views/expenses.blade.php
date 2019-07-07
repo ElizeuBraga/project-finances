@@ -21,6 +21,7 @@
                         <div class="form-group">
                             @csrf
                             @method('POST')
+                            <label for="">Selecione um produto</label>
                             <select name="product_id" id="" class="form-control" required>
                                 <option value="">Selecione</option>
                                 @foreach ($products as $product)
@@ -28,6 +29,7 @@
                                 @endforeach
                             </select>
                             <br>
+                            <label for="">Preço</label>
                             <input class="dinheiro form-control" type="text" name="price" required>
                             <br>
                             <button class="btn btn-primary btn-lg col-md" type="submit">Salvar</button>
@@ -37,11 +39,11 @@
                     </form>
                 </div>
                 <div class="card-body">
-                    <div class="table">
-                        <table>
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>Produto</td>
+                                    <th>Categoria</td>
                                     <th>Valor</td>
                                 </tr>
                             </thead>
@@ -49,13 +51,18 @@
                                 @foreach($expenses as $expense)
                                 <tr>
                                     <td>{{$expense->name}}</td>
-                                    <td>{{$expense->price}}</td>
+                                    <td>{{$expense->category_name}}</td>
+                                    <td><b>R$</b> {{ number_format($expense->price, 2)}}</td>
                                 </tr>
                                 @endforeach
+                                <tr style="background:tomato;">
+                                    <td><b>Total</b></td>
+                                    <td></td>
+                                    <td style=""><b>R$</b> {{number_format($total_price, 2)}}</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
             </div>
         </div>
     </div>
