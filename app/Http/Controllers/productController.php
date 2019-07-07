@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use Auth;
 
 class ProductController extends Controller
 {
@@ -37,6 +38,7 @@ class ProductController extends Controller
     {
         $product = new Product();
         $product->name = $request['name'];
+        $product->user_id = Auth::user()->id;
         $product->save();
 
         return redirect()->back()->with('success', 'Salvo com sucesso');
