@@ -3,20 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Freelance;
-use Illuminate\Support\Facades\Auth;
-use DB;
-class FreelanceController extends Controller
+use Auth;
+use App\Region;
+
+class RegionController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        return view('freelances');
+        //
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
-        $rates = DB::table('rates')->get();
-        return view('freelances', compact('rates'));        
+        //
     }
 
     /**
@@ -27,11 +36,13 @@ class FreelanceController extends Controller
      */
     public function store(Request $request)
     {
-        $freelance = new Freelance();
-        $freelance->region = $request["region"];
-        $freelance->price = $request["price"];
-        $freelance->user_id = Auth::user()->id;
-        $freelance->save();
+        $region = new Region();
+        $region->name = $request['name'];
+        $region->user_id = Auth::user()->id;
+        $region->rate_id = $request['rate_id'];
+        $region->price = 0;
+        $region->save();
+
         return redirect()->back()->with('success', 'Salvo com sucesso');
     }
 

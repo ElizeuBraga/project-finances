@@ -31,6 +31,8 @@ Route::post('/categorias', 'CategoryController@store')->name('category.submit')-
 Route::get('/relatorios', 'reportController@index')->name('report')->middleware('auth');
 Route::get('/freelances', 'FreelanceController@create')->name('freelances')->middleware('auth');
 Route::post('/freelances', 'FreelanceController@store')->name('freelances.submit')->middleware('auth');
+Route::post('/regioes', 'RegionController@store')->middleware('auth');
+Route::post('/taxas', 'RateController@store')->middleware('auth');
 Route::post('/despesas', 'ExpenseController@store')->name('expenses.submit')->middleware('auth');
 Route::get('/despesas', 'ExpenseController@create')->name('expenses')->middleware('auth');
 

@@ -13,22 +13,34 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    <form action="/freelances" method="POST">
+                    
+                    <form action="/taxas" method="POST">
                         @csrf
                         @method('POST')
-                        <select name="region|price">
-                        <option>Selecione</option>
-                            @foreach ($regions as $region)
-                            <option value="[{{$region->name}},{{$region->price}}]">
-                                {{$region->name}}
-                                {{-- <input type="text" value="{{$region->price}}">                             --}}
-                            </option>
+                        <label for="">Valores de taxas</label>
+                        <input class="form-control" type="text" name="price">
+                        <div>
+                            <h5>Já cadastradas</h5>
+                            @foreach ($rates as $rate)
+                        <p>{{$rate->price}}</p>
                             @endforeach
+                        </div>
+                        <button class="btn btn-primary" type="submit">Salvar</button>
+                    </form>
+
+                    <form action="/regioes" method="POST">
+                        @csrf
+                        @method('POST')
+                        <label for="">Regioes</label>
+                        <input class="form-control" type="text" name="name">
+                        <label for="">Valor</label>
+                        <select class="form-control" name="rate_id">
+                        <option value="">Selecione</option>
+                        @foreach ($rates as $rate)
+                        <option value="{{$rate->id}}">{{$rate->price}}</option>
+                        @endforeach
                         </select>
-                        {{-- <input type="text" name="obs"> --}}
-                        {{-- <input type="text" name="price"> --}}
-                        <button type="submit">Salvar</button>
+                        <button class="btn btn-primary" type="submit">Salvar</button>
                     </form>
                 </div>
             </div>
