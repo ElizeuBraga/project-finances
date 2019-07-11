@@ -16,7 +16,25 @@ class FreelanceController extends Controller
     public function create()
     {
         $rates = DB::table('rates')->get();
-        return view('freelances', compact('rates'));        
+        // return view('freelances', compact('rates'));
+
+        $regions = DB::table('regions')->get();
+
+        $dadosEntregas = DB::table('regions')
+        ->join('rates', 'rates.id', '=', 'regions.rate_id')
+        ->join('users', 'users.id', '=', 'regions.user_id')
+        ->join('freelances', 'freelances.region_id', '=', 'regions.id')
+        ->select('regions.name as regionName', 'rates.price as priceRegion', 'freelances.obs')
+        ->where('users.id', '=', Auth::user()->id)->get();
+
+        $date = now();
+        $processdate = explode("-", $date);
+        $month = $processdate[2];
+        // dd($month);
+
+        $total_price = $dadosEntregas->sum('priceRegion');
+
+        return view('freelances', compact('rates', 'regions', 'dadosEntregas', 'total_price'));        
     }
 
     /**
@@ -28,8 +46,8 @@ class FreelanceController extends Controller
     public function store(Request $request)
     {
         $freelance = new Freelance();
-        $freelance->region = $request["region"];
-        $freelance->price = $request["price"];
+        $freelance->region_id = $request['region_id'];
+        $freelance->obs = $request['obs'];
         $freelance->user_id = Auth::user()->id;
         $freelance->save();
         return redirect()->back()->with('success', 'Salvo com sucesso');
