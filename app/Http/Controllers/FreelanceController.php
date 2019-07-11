@@ -6,17 +6,20 @@ use Illuminate\Http\Request;
 use App\Freelance;
 use Illuminate\Support\Facades\Auth;
 use DB;
+use Carbon\Carbon;
 class FreelanceController extends Controller
 {
     public function index()
     {
-        return view('freelances');
+        // return view('freelances');
     }
 
     public function create()
     {
+        $date = Carbon::now();
+
+        $today = $date->day;
         $rates = DB::table('rates')->get();
-        // return view('freelances', compact('rates'));
 
         $regions = DB::table('regions')->get();
 
@@ -24,25 +27,16 @@ class FreelanceController extends Controller
         ->join('rates', 'rates.id', '=', 'regions.rate_id')
         ->join('users', 'users.id', '=', 'regions.user_id')
         ->join('freelances', 'freelances.region_id', '=', 'regions.id')
-        ->select('regions.name as regionName', 'rates.price as priceRegion', 'freelances.obs')
-        ->where('users.id', '=', Auth::user()->id)->get();
-
-        $date = now();
-        $processdate = explode("-", $date);
-        $month = $processdate[2];
-        // dd($month);
+        ->select('regions.name as regionName', 'rates.price as priceRegion', 'freelances.obs', 'freelances.created_at')
+        ->whereDay('freelances.created_at', '=', $today)
+        ->where('users.id', '=', Auth::user()->id)
+        ->get();
 
         $total_price = $dadosEntregas->sum('priceRegion');
 
         return view('freelances', compact('rates', 'regions', 'dadosEntregas', 'total_price'));        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $freelance = new Freelance();
@@ -52,47 +46,23 @@ class FreelanceController extends Controller
         $freelance->save();
         return redirect()->back()->with('success', 'Salvo com sucesso');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+     
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
         //

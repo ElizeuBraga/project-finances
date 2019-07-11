@@ -58,7 +58,7 @@
                         <button class="btn btn-primary" type="submit">Salvar</button>
                         
                         @foreach ($dadosEntregas as $entregas)
-                        <p>{{$entregas->regionName}}-{{$entregas->obs}}-{{$entregas->priceRegion}}</p>
+                        <p>{{$entregas->regionName}}-{{$entregas->obs}}-{{$entregas->priceRegion}} - {{$entregas->created_at}}</p>
                         @endforeach
                         <p>{{$total_price}}</p>
                     </form>
