@@ -21,7 +21,9 @@ class FreelanceController extends Controller
         $today = $date->day;
         $rates = DB::table('rates')->get();
 
-        $regions = DB::table('regions')->get();
+        $regions = DB::table('regions')
+        ->orderBy('name', 'asc')
+        ->get();
 
         $dadosEntregas = DB::table('regions')
         ->join('rates', 'rates.id', '=', 'regions.rate_id')
@@ -29,6 +31,7 @@ class FreelanceController extends Controller
         ->join('freelances', 'freelances.region_id', '=', 'regions.id')
         ->select('regions.name as regionName', 'rates.price as priceRegion', 'freelances.obs', 'freelances.created_at')
         ->whereDay('freelances.created_at', '=', $today)
+        ->orderBy('freelances.created_at', 'desc')
         ->where('users.id', '=', Auth::user()->id)
         ->get();
 
