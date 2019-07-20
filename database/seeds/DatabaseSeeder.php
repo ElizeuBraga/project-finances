@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriesSeeder::class);
         $this->call(RatesSeeder::class);
         $this->call(RegionsSeeder::class);
+        $this->call(ExpensesSeeder::class);
     }
 }
