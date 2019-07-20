@@ -23,6 +23,7 @@ class FreelanceController extends Controller
 
         $regions = DB::table('regions')
         ->orderBy('name', 'asc')
+        ->where('user_id', '=', Auth::user()->id)
         ->get();
 
         $dadosEntregas = DB::table('regions')
