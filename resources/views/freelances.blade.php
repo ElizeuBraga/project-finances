@@ -63,7 +63,7 @@
                         <tr>
                             <td style="background:red;"><b>Total</b></td>
                             <td style="background:red;"></td>
-                            <td style="background:red;"><b>{{number_format($total_price + 45, 2)}}</b></td>
+                            <td style="background:red;"><b>{{number_format($total_price + 40, 2)}}</b></td>
                         </tr>
                     </table>
                 </form>
