@@ -33,6 +33,7 @@ class FreelanceController extends Controller
         ->whereDay('freelances.created_at', '=', $today)
         ->orderBy('freelances.created_at', 'desc')
         ->where('users.id', '=', Auth::user()->id)
+        ->where('freelances.user_id', '=', Auth::user()->id)
         ->get();
 
         $total_price = $dadosEntregas->sum('priceRegion');

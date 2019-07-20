@@ -48,6 +48,7 @@ class ExpenseController extends Controller
         ->join('categories', 'products.category_id', '=', 'categories.id')
         ->select('products.name', 'expenses.price', 'categories.name as category_name')
         ->where('users.id', '=', Auth::user()->id)
+        ->where('expenses.user_id', '=', Auth::user()->id)
         ->whereMonth('expenses.created_at', '=', $month)
         ->orderBy('category_name')
         ->get();
