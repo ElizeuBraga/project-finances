@@ -53,5 +53,12 @@ class FreelancesSeeder extends Seeder
             'region_id' => 3,//Sob2
             'created_at' => now(),
         ]);
+        
+        DB::table('freelances')->insert([
+            'obs' => 'Ar17 7 2',
+            'user_id' => 2,
+            'region_id' => 3,//Sob2
+            'created_at' => now(),
+        ]);
     }
 }

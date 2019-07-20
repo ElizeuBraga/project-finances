@@ -33,7 +33,6 @@ class FreelanceController extends Controller
         ->select('regions.name as regionName', 'rates.price as priceRegion', 'freelances.obs', 'freelances.created_at')
         ->whereDay('freelances.created_at', '=', $today)
         ->orderBy('freelances.created_at', 'desc')
-        ->where('users.id', '=', Auth::user()->id)
         ->where('freelances.user_id', '=', Auth::user()->id)
         ->get();
 
