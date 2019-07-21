@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
+use Auth;
 
-class reportController extends Controller
+class ReportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,16 @@ class reportController extends Controller
      */
     public function index()
     {
-        return view('report');
+        $exReports = DB::table('expenses')
+        ->select('products.name as name_product', 'expenses.price', 'users.name as name_user')
+        ->join('products', 'products.id', '=', 'expenses.product_id')
+        ->join('users', 'users.id', '=', 'expenses.user_id')
+        ->where('users.id', '=', Auth::user()->id)
+        ->get();
+
+        // dd($exReports);
+
+        return view('report', compact('exReports'));
     }
 
     /**

@@ -33,24 +33,32 @@ class ExpensesSeeder extends Seeder
             'created_at' => now()
         ]);
 
+        //-----For user2-------------------------------------
         DB::table('expenses')->insert([
             'price' => 23,
             'user_id' => 2,
-            'product_id' => 1,
+            'product_id' => 4,
             'created_at' => now()
         ]);
 
         DB::table('expenses')->insert([
             'price' => 25.5,
             'user_id' => 2,
-            'product_id' => 2,
+            'product_id' => 5,
             'created_at' => now()
         ]);
 
         DB::table('expenses')->insert([
             'price' => 13.5,
             'user_id' => 2,
-            'product_id' => 3,
+            'product_id' => 6,
+            'created_at' => now()
+        ]);
+
+        DB::table('expenses')->insert([
+            'price' => 17.5,
+            'user_id' => 2,
+            'product_id' => 6,
             'created_at' => now()
         ]);
     }
