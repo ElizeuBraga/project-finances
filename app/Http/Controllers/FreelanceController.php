@@ -23,17 +23,19 @@ class FreelanceController extends Controller
 
         $regions = DB::table('regions')
         ->orderBy('name', 'asc')
+        ->where('user_id', '=', Auth::user()->id)
         ->get();
 
-        $dadosEntregas = DB::table('regions')
+        $dadosEntregas = DB::table('freelances')
+        ->select('freelances.obs', 'regions.name as regionName', 'rates.price as priceRegion', 'freelances.created_at')
+        ->join('users', 'users.id', '=', 'freelances.user_id')
+        ->join('regions', 'regions.id', '=', 'freelances.region_id')
         ->join('rates', 'rates.id', '=', 'regions.rate_id')
-        ->join('users', 'users.id', '=', 'regions.user_id')
-        ->join('freelances', 'freelances.region_id', '=', 'regions.id')
-        ->select('regions.name as regionName', 'rates.price as priceRegion', 'freelances.obs', 'freelances.created_at')
-        ->whereDay('freelances.created_at', '=', $today)
-        ->orderBy('freelances.created_at', 'desc')
         ->where('users.id', '=', Auth::user()->id)
+        ->orderBy('freelances.created_at')
         ->get();
+
+        // dd([Auth::user()->name => $dadosEntregas]);
 
         $total_price = $dadosEntregas->sum('priceRegion');
 
