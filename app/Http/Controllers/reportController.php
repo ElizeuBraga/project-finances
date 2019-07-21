@@ -28,7 +28,7 @@ class ReportController extends Controller
         // $total_price = $exReports->sum('price');
         // dd([Auth::user()->name => $exReports]);
 
-        return view('report', compact('exReports', 'total_price'));
+        return view('report', compact('exReports'));
     }
 
     /**
