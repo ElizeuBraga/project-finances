@@ -32,6 +32,7 @@ class FreelanceController extends Controller
         ->join('regions', 'regions.id', '=', 'freelances.region_id')
         ->join('rates', 'rates.id', '=', 'regions.rate_id')
         ->where('users.id', '=', Auth::user()->id)
+        ->whereDay('freelances.created_at', '=', $today)
         ->orderBy('freelances.created_at')
         ->get();
 
