@@ -16,15 +16,19 @@ class ReportController extends Controller
     public function index()
     {
         $exReports = DB::table('expenses')
-        ->select('products.name as name_product', 'expenses.price', 'users.name as name_user')
+        ->select('categories.name', DB::raw('SUM(expenses.price) as total_category'))
         ->join('products', 'products.id', '=', 'expenses.product_id')
         ->join('users', 'users.id', '=', 'expenses.user_id')
+        ->join('categories', 'categories.id', '=', 'products.category_id')
         ->where('users.id', '=', Auth::user()->id)
+        ->groupBy(DB::raw('categories.name','products.category_id'))
+        ->orderBy('total_category', 'desc')
         ->get();
 
-        // dd($exReports);
+        // $total_price = $exReports->sum('price');
+        // dd([Auth::user()->name => $exReports]);
 
-        return view('report', compact('exReports'));
+        return view('report', compact('exReports', 'total_price'));
     }
 
     /**
