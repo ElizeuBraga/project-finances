@@ -1,4 +1,4 @@
 @extends('layouts.app')
 @section('content')
-<h1>Perfil</h1>
+<a href="/perfil/{{Auth::user()->id}}/editar">Editar perfil</a>
 @endsection

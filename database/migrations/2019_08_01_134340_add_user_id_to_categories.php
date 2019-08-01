@@ -14,7 +14,7 @@ class AddUserIdToCategories extends Migration
     public function up()
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned()->after('name')->nullable();
+            $table->integer('user_id')->unsigned()->after('name')->nullable()   ;
 
             $table->foreign('user_id')->references('id')->on('users');
         });
