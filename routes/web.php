@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/perfil', 'UserController@profile')->name('profile');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/carteira', 'walletController@index')->name('wallet')->middleware('auth');
 Route::post('/carteira', 'walletController@store')->name('wallet')->middleware('auth');
