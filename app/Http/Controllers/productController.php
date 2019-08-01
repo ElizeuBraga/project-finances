@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
 use Auth;
+use DB;
 
 class ProductController extends Controller
 {
@@ -26,7 +27,12 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = \App\Category::all();
+        // $categories = \App\Category::all()->hasMany(Auth::user()->id);
+        $categories = DB::table("categories")
+        ->select("categories.name", "categories.id")
+        ->where("categories.user_id", "=", Auth::user()->id)
+        ->get();
+
         return view('product', compact('categories'));
     }
 
