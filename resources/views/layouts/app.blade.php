@@ -84,6 +84,16 @@
         .logo{
             width: 50px;
         }
+        
+        p{
+            font-size: 18px;
+        }
+
+        .img-article{
+            width: 200px;
+            float: left;
+            margin-right: 20px;
+        }
     </style>
 </head>
 <body>
