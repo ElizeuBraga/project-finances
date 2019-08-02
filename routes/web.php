@@ -17,7 +17,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
 Route::get('/perfil/{user}', 'UserController@edit')->name('user.edit');
 Route::put('/perfil/{user}/editar', 'UserController@update')->name('user.update');
 Route::get('/perfil', 'UserController@profile')->name('profile');
@@ -39,4 +38,6 @@ Route::post('/regioes', 'RegionController@store')->middleware('auth');
 Route::post('/taxas', 'RateController@store')->middleware('auth');
 Route::post('/despesas', 'ExpenseController@store')->name('expenses.submit')->middleware('auth');
 Route::get('/despesas', 'ExpenseController@create')->name('expenses')->middleware('auth');
+Route::get('/economize', 'ExpenseController@saveMoney');
+Route::get('/livrosparaler', 'ExpenseController@books');
 

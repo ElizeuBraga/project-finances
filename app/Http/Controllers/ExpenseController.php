@@ -9,6 +9,15 @@ use DB;
 
 class ExpenseController extends Controller
 {
+    public function savemoney(){
+        return view('articles.savemoney');
+    }
+
+    public function books(){
+        return view('articles.books');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
