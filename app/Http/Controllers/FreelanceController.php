@@ -18,7 +18,6 @@ class FreelanceController extends Controller
     {
         $date = Carbon::now();
 
-        $today = $date->day;
         $rates = DB::table('rates')->get();
 
         $regions = DB::table('regions')
@@ -32,7 +31,7 @@ class FreelanceController extends Controller
         ->join('regions', 'regions.id', '=', 'freelances.region_id')
         ->join('rates', 'rates.id', '=', 'regions.rate_id')
         ->where('users.id', '=', Auth::user()->id)
-        ->whereDay('freelances.created_at', '=', $today)
+        ->whereDay('freelances.created_at', '=', $date->day)
         ->orderBy('freelances.created_at')
         ->get();
 
