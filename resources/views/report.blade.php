@@ -13,9 +13,8 @@
                     @endif
                     <div class="jumbotron jumbotron-fluid">
                         <div class="container">
-                            <h3 class="">Relatório do mês</h3>
+                            <h3 class="">Relatório do mês de <b>{{$date->isoFormat('MMMM')}}</b></h3>
                             <hr class="my-2">
-                            <p>Olá <b>{{Auth::user()->name}}</b> analizei os seus gastos e os separei por categoria :)</p>
                             <p class="lead">
                                 {{-- <a class="btn btn-primary btn-lg" href="Jumbo action link" role="button">Jumbo action name</a> --}}
                             </p>

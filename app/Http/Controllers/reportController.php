@@ -18,6 +18,7 @@ class ReportController extends Controller
     public function index()
     {
         $date = Carbon::now();
+        
         // dd($date->month);
 
 
@@ -35,7 +36,7 @@ class ReportController extends Controller
         // $total_price = $exReports->sum('price');
         // dd([Auth::user()->name => $exReports]);
 
-        return view('report', compact('exReports'));
+        return view('report', compact('exReports', 'date'));
     }
 
     /**
