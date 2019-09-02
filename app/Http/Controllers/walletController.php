@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Wallet;
-use App\Expense;
-use Carbon\Carbon;
 use DB;
 
 class WalletController extends Controller
@@ -19,12 +17,9 @@ class WalletController extends Controller
      */
     public function index()
     {
-        $date = Carbon::now();
-
-        $moneyWallet = Wallet::whereMonth('created_at','=', $date->month)->sum('money');;
-        $expenses = Expense::sum('price');
+        $moneyWallet = Wallet::sum('money');
         
-        return view('wallet', compact('moneyWallet', 'expenses'));
+        return view('wallet', compact('moneyWallet'));
     }
 
     /**
