@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\wallet;
+use App\Wallet;
 use DB;
 
-class walletController extends Controller
+class WalletController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,23 +17,9 @@ class walletController extends Controller
      */
     public function index()
     {
-        // $dataAt = now();
-        $userName = Auth::user()->name;
-        $userId = Auth::user()->id;
-        setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-        // date_default_timezone_set('America/Sao_Paulo');
-        $day =  strftime('%A, %d de %B de %Y', strtotime('today'));
-
-        $incomes = DB::table('incomes')
-        ->select('id','name')
-        ->where('user_id', '=', $userId)
-        ->get();
-
-        $reports = DB::table('wallets')
-        ->select('id', 'money', 'created_at')
-        ->get();
-
-        return view('wallet', ['userName'=>$userName, 'day' => $day], compact('incomes', 'reports'));
+        $moneyWallet = Wallet::sum('money');
+        
+        return view('wallet', compact('moneyWallet'));
     }
 
     /**
@@ -56,7 +42,8 @@ class walletController extends Controller
     {
         //
         $input = Input::all();
-        $wallet = new wallet();
+        $input['money'] = str_replace(',', '.', $input['money']);
+        $wallet = new Wallet();
         $wallet -> fill($input);
         $wallet->save();
         return redirect('/carteira');

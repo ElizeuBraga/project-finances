@@ -144,6 +144,9 @@
                             <a class="nav-link" href="{{route('expenses')}}">Gastos</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{route('wallet')}}">Carteira</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{route('report')}}">Relatórios</a>
                         </li>
                         <li class="nav-item">
