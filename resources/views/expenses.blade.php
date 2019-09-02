@@ -50,7 +50,12 @@
                             <tbody>
                                 @foreach($expenses as $expense)
                                 <tr>
-                                    <td>{{$expense->name}}</td>
+                                    <td>
+                                        {{$expense->name}}
+                                        @if ($month == date('m'))
+                                        <span style="font-size: 11px; color:green;">Hoje</span>
+                                        @endif
+                                    </td>
                                     <td>{{$expense->category_name}}</td>
                                     <td><b>R$</b> {{ number_format($expense->price, 2)}}</td>
                                 </tr>

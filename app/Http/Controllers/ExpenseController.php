@@ -55,7 +55,7 @@ class ExpenseController extends Controller
         ->join('products', 'expenses.product_id', '=', 'products.id')
         ->join('users', 'expenses.user_id', '=', 'users.id')
         ->join('categories', 'products.category_id', '=', 'categories.id')
-        ->select('products.name', 'expenses.price', 'categories.name as category_name')
+        ->select('products.name', 'expenses.price', 'categories.name as category_name', 'expenses.created_at')
         ->where('users.id', '=', Auth::user()->id)
         ->where('expenses.user_id', '=', Auth::user()->id)
         ->whereMonth('expenses.created_at', '=', $month)
@@ -64,7 +64,7 @@ class ExpenseController extends Controller
         
         $total_price = $expenses->sum('price');
 
-        return view('expenses', compact('products', 'total_price', 'expenses'));        
+        return view('expenses', compact('products', 'total_price', 'expenses', 'month'));        
     }
 
     /**
