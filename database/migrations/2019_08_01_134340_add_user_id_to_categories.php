@@ -14,7 +14,7 @@ class AddUserIdToCategories extends Migration
     public function up()
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->unsignedInteger('user_id')->after('name')->nullable()   ;
+            $table->unsignedBigInteger('user_id')->nullable()->after('name');
 
             $table->foreign('user_id')->references('id')->on('users');
         });
@@ -28,7 +28,7 @@ class AddUserIdToCategories extends Migration
     public function down()
     {
         Schema::table('categories', function (Blueprint $table) {
-            //
+            dropForeign('user_id');
         });
     }
 }
