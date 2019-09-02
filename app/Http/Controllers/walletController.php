@@ -21,7 +21,7 @@ class WalletController extends Controller
     {
         $date = Carbon::now();
 
-        $moneyWallet = Wallet::whereDate('created_at','=', $date->month)->sum('money');;
+        $moneyWallet = Wallet::whereMonth('created_at','=', $date->month)->sum('money');;
         $expenses = Expense::sum('price');
         
         return view('wallet', compact('moneyWallet', 'expenses'));
