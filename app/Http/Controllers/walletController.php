@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Wallet;
+use App\Expense;
 use DB;
 
 class WalletController extends Controller
@@ -18,8 +19,9 @@ class WalletController extends Controller
     public function index()
     {
         $moneyWallet = Wallet::sum('money');
+        $expenses = Expense::sum('price');
         
-        return view('wallet', compact('moneyWallet'));
+        return view('wallet', compact('moneyWallet', 'expenses'));
     }
 
     /**

@@ -22,7 +22,10 @@
                         </div>
                     </form>
                 </div>
-            <p>Dinheiro na carteira - <b>{{ number_format($moneyWallet, 2, ',', '.')}}</b></p>
+                @php
+                    $money = $moneyWallet - $expenses;
+                @endphp
+            <p>Dinheiro na carteira - <b>{{ number_format($money, 2, ',', '.')}}</b></p>
             </div>
         </div>
     </div>
