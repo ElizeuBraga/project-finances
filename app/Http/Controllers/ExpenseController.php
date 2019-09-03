@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Expense;
 use Auth;
 use DB;
+use Carbon\Carbon;
 
 class ExpenseController extends Controller
 {
@@ -46,11 +47,10 @@ class ExpenseController extends Controller
         ->select('products.id', 'products.name')
         ->where('products.user_id', '=', Auth::user()->id)
         ->get();
-
-        $date = now();
-        $processdate = explode("-", $date);
-        $month = $processdate[1];
-
+        
+        $date = Carbon::now();
+        $month = $date->month;
+        $day = $date->day;
         $expenses = DB::table('expenses')
         ->join('products', 'expenses.product_id', '=', 'products.id')
         ->join('users', 'expenses.user_id', '=', 'users.id')
@@ -64,7 +64,7 @@ class ExpenseController extends Controller
         
         $total_price = $expenses->sum('price');
 
-        return view('expenses', compact('products', 'total_price', 'expenses', 'month'));        
+        return view('expenses', compact(['products', 'total_price', 'expenses', 'month', 'day']));        
     }
 
     /**

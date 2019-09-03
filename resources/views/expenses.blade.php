@@ -48,11 +48,14 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                // dd(Carbon\Carbon::now());
+                                @endphp
                                 @foreach($expenses as $expense)
                                 <tr>
                                     <td>
                                         {{$expense->name}}
-                                        @if ($month == date('m'))
+                                        @if (Carbon\Carbon::parse($expense->created_at)->format('d') == date('d'))
                                         <span style="font-size: 11px; color:green;">Hoje</span>
                                         @endif
                                     </td>
