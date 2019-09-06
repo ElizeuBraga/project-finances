@@ -48,15 +48,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                // dd(Carbon\Carbon::now());
-                                @endphp
                                 @foreach($expenses as $expense)
                                 <tr>
                                     <td>
                                         {{$expense->name}}
                                         @if (Carbon\Carbon::parse($expense->created_at)->format('d') == date('d'))
                                         <span style="font-size: 11px; color:green;">Hoje</span>
+                                        @endif
+
+                                        @if (Carbon\Carbon::parse($expense->created_at)->format('d') == date('d') - 1)
+                                        <span style="font-size: 11px; color:orange;">Ontem</span>
                                         @endif
                                     </td>
                                     <td>{{$expense->category_name}}</td>
