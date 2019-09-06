@@ -103,6 +103,7 @@
             color: blue;
         }
     </style>
+    @yield('style')
 </head>
 <body>
     <div id="app">
@@ -162,9 +163,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('category')}}">Categorias</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('freelances')}}">Entregas</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

@@ -1,23 +1,29 @@
 @extends('layouts.app')
+@section('style')
+<style>
+    .icons{
+        padding: 12px 12px 12px 12px;
+        height: 200px;
+        border: solid;
+        border-color: tomato;
+    }
+
+    .col{
+        padding: 10px;
+        margin-left: 80px;
+    }
+</style>
+@endsection
 @section('content')
 <div class="row">
     <div class="col">
-    <center>
-        <a href="/carteira"><img src="/imgs/wallet.png" alt="" style="height: 200px;"></a>
-        <h3>Carteira</h3>
-    </center>
+        <a href="/carteira"><img class="icons" src="/imgs/wallet.png" alt=""></a>
     </div>
     <div class="col">
-        <center>
-            <a href="/despesas"><img src="/imgs/expense.png" alt="" style="height: 200px;"></a>
-            <h3>Gastos</h3>
-        </center>
+        <a href="/despesas"><img class="icons" src="/imgs/expense.png" alt="">
     </div>
     <div class="col">
-        <center>
-            <a href="/relatorios"><img src="/imgs/report.png" alt="" style="height: 200px;"></a>
-            <h3>Relatótrios</h3>
-        </center>
+        <a href="/relatorios"><img class="icons" src="/imgs/report.png" alt="">
     </div>
 </div>
 @endsection
