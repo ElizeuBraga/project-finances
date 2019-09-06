@@ -20,10 +20,10 @@ class WalletController extends Controller
     public function index()
     {
         $date = Carbon::now();
-        $moneyWallets = Wallet::sum('money');
-        $moneyExpense = Expense::whereMonth('created_at', $date->month)->sum('price');;
+        $moneyWallets = Wallet::whereMonth('created_at', $date->month)->sum('money');
+        $moneyExpense = Expense::whereMonth('created_at', $date->month)->sum('price');
         // dd($moneyExpense);
-        return view('wallet', compact('moneyWallets', 'moneyExpense'));
+        return view('wallet', compact('moneyWallets', 'moneyExpense', 'date'));
     }
 
     /**

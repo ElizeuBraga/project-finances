@@ -6,7 +6,6 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Carteira</div>
-
                 <div class="card-body">
                     <form action="{{url('/carteira')}}" method="POST">
                         <div class="for-group">
@@ -22,12 +21,25 @@
                         </div>
                     </form>
                 </div>
-            @php
+                @php
                 $moneyWallet = $moneyWallets - $moneyExpense;
-            @endphp
-            <p>Dinheiro na carteira - <b>{{ number_format($moneyWallet, 2, ',', '.')}}</b></p>
+                @endphp
+                <center><h2><b>{{$date->isoFormat('MMMM')}}</b></h2></center>
+                <h4>Ganhos - <b>{{ number_format($moneyWallets, 2, ',', '.')}}</b></h4>
+                <h4>Gastos - <b>{{ number_format($moneyExpense, 2, ',', '.')}}</b></h4>
+                <h4>Carteira - <b><span id="carteira">{{ number_format($moneyWallet, 2, ',', '.')}}</span></b></h4>
             </div>
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+    <script>
+        carteira = document.getElementById("carteira");
+        if(parseFloat(carteira.innerHTML) < 0){
+            carteira.classList.add("negative");
+        }else{
+            carteira.classList.add("positive");
+        }
+    </script>
 @endsection

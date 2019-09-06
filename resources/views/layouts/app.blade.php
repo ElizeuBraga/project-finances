@@ -94,6 +94,14 @@
             float: left;
             margin-right: 20px;
         }
+
+        .negative{
+            color: red;
+        }
+
+        .positive{
+            color: blue;
+        }
     </style>
 </head>
 <body>
@@ -187,6 +195,7 @@
         @yield('content')
     </main>
 </div>
+@yield('script')
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
     var app = new Vue({
