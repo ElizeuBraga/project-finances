@@ -23,8 +23,8 @@
                 width: 96%
             }
             .col-md-6{
-                width: 100%;
-                height: 250px;
+                /* width: 100%; */
+                /* height: 250px; */
                 margin-top: 15px;
                 margin-bottom: 2px;
             }
@@ -35,34 +35,41 @@
                 border: solid green 1px;
                 border-radius: 5px;
             }
+
+            .btn{
+                width: 100%;
+                height: 50px;
+                text-transform: uppercase;
+                margin-top: 20%;
+                border: none;
+                padding-top: 12px;
+                border-radius: 25px;
+                font-size: 16px;
+            }
         }
     </style>
 @endsection
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-            <a href="{{route('expenses')}}">
-                    <img src="images/img-09.svg" alt="">
-                </a>
-            </div>
-            <div class="col-md-6">
-                <a href="{{route('wallet')}}">
-                    <img src="images/img-10.svg" alt="">
-                </a>
-            </div>
+            <a class="btn btn-primary" href="{{route('expenses')}}">
+                Gastos
+            </a>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <a href="{{route('report')}}">
-                    <img src="images/img-11.svg" alt="">
-                </a>
-            </div>
-            <div class="col-md-6">
-            <a href="{{route('category')}}">
-                    <img src="images/img-12.svg" alt="">
-                </a>
-            </div>
+            <a class="btn btn-primary" href="{{route('wallet')}}">
+                Carteira
+            </a>
+        </div>
+        <div class="row">
+            <a class="btn btn-primary" href="{{route('report')}}">
+                Relatórios
+            </a>
+        </div>
+        <div class="row">
+            <a class="btn btn-primary" href="{{route('category')}}">
+                Categorias
+            </a>
         </div>
     </div>
 @endsection
