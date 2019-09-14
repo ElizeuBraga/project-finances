@@ -28,7 +28,7 @@
                 margin-top: 15px;
                 margin-bottom: 2px;
             }
-            
+
             img{
                 height: 100%;
                 width: 100%;
@@ -52,11 +52,11 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <a class="btn btn-primary" href="{{route('expenses')}}">
-                Gastos
+            <a class="btn btn-primary" href="{{route('receitas.index')}}">
+                Receitas
             </a>
         </div>
-        <div class="row">
+        {{-- <div class="row">
             <a class="btn btn-primary" href="{{route('wallet')}}">
                 Carteira
             </a>
@@ -70,9 +70,9 @@
             <a class="btn btn-primary" href="{{route('category')}}">
                 Categorias
             </a>
-        </div>
+        </div> --}}
     </div>
 @endsection
 @section('script')
-    
+
 @endsection

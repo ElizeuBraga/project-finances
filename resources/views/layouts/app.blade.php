@@ -13,8 +13,8 @@
         .container{
             margin-top: 2%;
             background: white;
-            border-radius: 10px;
             margin-bottom: 2%;
+            width: 99%;
         }
     </style>
     @yield('style')
