@@ -12,7 +12,7 @@ class RevenueAmount extends Model
 
     protected $primaryKey = 'revenue_id';
 
-    public function revenueAmounts(){
-        return $this->hasMany('App\RevenueAmount');
-    }
+    // public function revenueAmounts(){
+    //     return $this->hasMany('App\RevenueAmount');
+    // }
 }
