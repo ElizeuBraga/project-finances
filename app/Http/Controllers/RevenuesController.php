@@ -16,7 +16,7 @@ class RevenuesController extends Controller
     {
         // $revenueAmount = Revenue::find(2)->revenueAmounts;
         $revenues = Revenue::get();
-        return view('revenues', compact('revenueAmount', 'revenues'));
+        return view('revenues', compact('revenues'));
     }
 
     /**
