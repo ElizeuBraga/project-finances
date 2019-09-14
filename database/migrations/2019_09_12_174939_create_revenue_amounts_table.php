@@ -16,8 +16,8 @@ class CreateRevenueAmountsTable extends Migration
         Schema::create('revenue_amounts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('value');
-            $table->bigInteger('revenue_amount_id')->unsigned();
-            $table->foreign('revenue_amount_id')->references('id')->on('revenues');
+            $table->bigInteger('revenue_id')->unsigned();
+            $table->foreign('revenue_id')->references('id')->on('revenues');
             $table->timestamps();
         });
     }
