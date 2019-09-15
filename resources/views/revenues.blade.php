@@ -22,9 +22,17 @@
     <div class="card-body">
         <ul class="list-group list-group-flush">
             <li class="list-group-item text-uppercase font-weight-bold">Receita<p class="total">Total no mês</p></li>
-            {{-- {{$revenueAmount}} --}}
+            @php
+            $i = 1;
+            @endphp
             @foreach ($revenues as $revenue)
-            <li class="list-group-item">{{$revenue->name}}<p class="total">---</p></li>
+            <li class="list-group-item">{{$revenue->name}}
+                @foreach ($revenueAmounts as $item)
+                @if ($revenue->id == $item->revenue_id)
+                    <p class="total">{{$item->total}}</p>
+                @endif
+                @endforeach
+            </li>
             @endforeach
         </ul>
     </div>

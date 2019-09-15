@@ -7,12 +7,7 @@ class RevenueAmount extends Model
 {
     protected $fillable = [
         'value',
-        'revenue_id'
+        'revenue_id',
+        'created_at'
     ];
-
-    protected $primaryKey = 'revenue_id';
-
-    // public function revenueAmounts(){
-    //     return $this->hasMany('App\RevenueAmount');
-    // }
 }
