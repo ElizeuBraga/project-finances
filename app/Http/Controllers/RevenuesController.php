@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use \App\Revenue;
 use DB;
+use Auth;
 use \App\RevenueAmount;
 use Illuminate\Http\Request;
 
@@ -15,14 +16,17 @@ class RevenuesController extends Controller
      */
     public function index()
     {
-        $revenues = Revenue::get();
+        $user = Auth::user();
+        $revenues = Revenue::where('user_id', '=', $user->id)->get();
         // $revenueAmounts = RevenueAmount::get();
         $revenueAmounts = DB::table('revenue_amounts')
+        ->join('revenues', 'revenues.id', '=', 'revenue_amounts.revenue_id')
         ->select('revenue_id',DB::raw('sum(value) as total'))
         ->groupBy(DB::raw('revenue_id'))
+        ->where('revenues.user_id', '=', $user->id)
         ->get();
         // dd($revenueAmounts);
-        // $revenueAmount = Revenue::find(1)->revenueAmounts;
+        // $revenueAmounts = Revenue::find(1)->revenueAmounts;
         return view('revenues', compact('revenues', 'revenueAmounts'));
     }
 

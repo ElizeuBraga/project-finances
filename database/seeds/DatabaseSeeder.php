@@ -19,10 +19,10 @@ class DatabaseSeeder extends Seeder
         // $this->call(ProductsSeeder::class);
         // $this->call(ExpensesSeeder::class);
         // $this->call(FreelancesSeeder::class);
-        $this->call(RevenuesSeeder::class);
+        // $this->call(RevenuesSeeder::class);
         // $this->call(ValuesRevenuesSeeder::class);
-        $this->call(ExpensesCategoriesSeeder::class);
-        $this->call(ExpensesSubCategoriesSeeder::class);
+        // $this->call(ExpensesCategoriesSeeder::class);
+        // $this->call(ExpensesSubCategoriesSeeder::class);
         // $this->call(ExpensesAmountSeeder::class);
     }
 }
