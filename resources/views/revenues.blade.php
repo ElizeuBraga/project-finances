@@ -27,7 +27,7 @@
         </button>
         </div>
     <div class="modal-body">
-    <form action="{{route('receitas-valores.store')}}" method="POST">
+    <form action="{{route('revenue-amounts.store')}}" method="POST">
             @csrf
             <div class="form-group">
                 <select name="revenue_id" class="custom-select" id="inputGroupSelect01" required>
@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
             <button type="submit" class="btn btn-primary">Salvar</button>
         </div>
     </form>
@@ -59,16 +59,16 @@
         </button>
         </div>
     <div class="modal-body">
-    <form action="{{route('receitas.store')}}" method="POST">
+    <form action="{{route('revenues.store')}}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="">Receita</label>
             <input type="hidden" class="form-control" name="user_id" value="{{Auth::user()->id}}" id="" aria-describedby="helpId" placeholder="" required>
-                <input type="text" class="form-control" name="name" id="" aria-describedby="helpId" placeholder="" required>
+            <input type="text" class="form-control" name="name" id="input_name" aria-describedby="helpId" placeholder="" required>
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
             <button type="submit" class="btn btn-primary">Salvar</button>
         </div>
     </form>
@@ -122,10 +122,10 @@
     @section('script')
     <script>
         $('#revenuesAmountModal').on('shown.bs.modal', function () {
-            $('#myInput').trigger('focus')
+            // $('#myInput').trigger('focus')
         });
         $('#revenuesModal').on('shown.bs.modal', function () {
-            $('#myInput').trigger('focus')
+            $('#input_name').trigger('focus')
         });
     </script>
 @endsection

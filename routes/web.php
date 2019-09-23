@@ -18,8 +18,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::resource("receitas", "RevenuesController");
-Route::resource("receitas-valores", "RevenueAmountsController");
+Route::resource("revenues", "RevenuesController");
+Route::resource("revenue-amounts", "RevenueAmountsController");
 
 // Route::get('/perfil/{user}', 'UserController@edit')->name('user.edit');
 // Route::put('/perfil/{user}/editar', 'UserController@update')->name('user.update');
