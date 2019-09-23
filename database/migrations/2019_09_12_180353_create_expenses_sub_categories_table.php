@@ -16,6 +16,8 @@ class CreateExpensesSubCategoriesTable extends Migration
         Schema::create('expenses_sub_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->bigInteger('expense_category_id')->unsigned();
             $table->foreign('expense_category_id')->references('id')->on('expenses_categories');
             $table->timestamps();

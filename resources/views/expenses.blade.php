@@ -37,6 +37,7 @@
                     @endforeach
                 </select>
                 <label for="">Value</label>
+                <input type="hidden" value={{Auth::user()->id}} class="form-control" name="user_id" id="name" aria-describedby="helpId" placeholder="" required>
                 <input type="text" class="form-control" name="value" id="" aria-describedby="helpId" placeholder="" required>
             </div>
         </div>
@@ -92,13 +93,14 @@
         <label for="">Receita</label>
         <div class="form-group">
             <label for="">Categorias</label>
-            <select class="form-control" name="expense_category_id" id="">
+            <select required class="form-control" name="expense_category_id" id="">
             <option value="">Categoria</option>
-            @foreach ($expensesCategories as $expensesCategory)
-            <option value="{{$expensesCategory->id}}">{{$expensesCategory->name}}</option>
+            @foreach ($expensesCategories as $expenseCategory)
+            <option value="{{$expenseCategory->id}}">{{$expenseCategory->name}}</option>
             @endforeach
             </select>
         </div>
+        <input type="hidden" value={{Auth::user()->id}} class="form-control" name="user_id" id="name" aria-describedby="helpId" placeholder="" required>
         <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId" placeholder="" required>
         </div>
         </div>

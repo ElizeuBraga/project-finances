@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class ExpensesSubCategorie extends Model
 {
-    protected $fillable = ['name', 'expense_category_id'];
+    protected $fillable = ['name', 'expense_category_id', 'user_id'];
 }

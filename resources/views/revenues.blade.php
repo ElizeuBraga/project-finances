@@ -37,6 +37,7 @@
                     @endforeach
                 </select>
                 <label for="">Value</label>
+            <input type="hidden" value="{{Auth::user()->id}}" class="form-control" name="user_id" id="" aria-describedby="helpId" placeholder="" required>
                 <input type="text" class="form-control" name="value" id="" aria-describedby="helpId" placeholder="" required>
             </div>
         </div>

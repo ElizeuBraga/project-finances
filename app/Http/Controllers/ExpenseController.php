@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Expense;
+use Auth;
 use App\ExpensesCategorie;
 use App\ExpensesSubCategorie;
 use Illuminate\Http\Request;
@@ -16,8 +17,8 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expensesCategories = ExpensesCategorie::orderBy('name', 'ASC')->get();
-        $expensesSubCategories = ExpensesSubCategorie::orderBy('name', 'ASC')->get();
+        $expensesCategories = ExpensesCategorie::orderBy('name', 'ASC')->where('user_id', Auth::user()->id)->get();
+        $expensesSubCategories = ExpensesSubCategorie::orderBy('name', 'ASC')->where('user_id', Auth::user()->id)->get();
         return view('expenses', compact('expensesCategories', 'expensesSubCategories'));
     }
 
