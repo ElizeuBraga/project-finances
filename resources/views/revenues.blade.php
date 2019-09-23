@@ -16,12 +16,12 @@
 @endsection
 @section('content')
 
-<!-- Modal -->
-<div class="modal fade" id="revenuesModal" tabindex="-1" role="dialog" aria-labelledby="revenuesModalLabel" aria-hidden="true">
+<!-- Modal revenueAmount-->
+<div class="modal fade" id="revenuesAmountModal" tabindex="-1" role="dialog" aria-labelledby="revenuesAmountModalLabel" aria-hidden="true">
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="revenuesModalLabel">Entrada de valores</h5>
+            <h5 class="modal-title" id="revenuesAmountModalLabel">Entrada de valores</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
@@ -48,6 +48,34 @@
 </div>
 </div>
 </div>
+<!-- Modal Revenue-->
+<div class="modal fade" id="revenuesModal" tabindex="-1" role="dialog" aria-labelledby="revenuesModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="revenuesModalLabel">Nova Receita</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    <div class="modal-body">
+    <form action="{{route('receitas.store')}}" method="POST">
+            @csrf
+            <div class="form-group">
+                <label for="">Receita</label>
+            <input type="hidden" class="form-control" name="user_id" value="{{Auth::user()->id}}" id="" aria-describedby="helpId" placeholder="" required>
+                <input type="text" class="form-control" name="name" id="" aria-describedby="helpId" placeholder="" required>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+    </form>
+</div>
+</div>
+</div>
+{{-- receitas.store --}}
 
 {{-- card --}}
 <div class="card">
@@ -55,11 +83,21 @@
         <h1>Minhas receitas</h1>
     </div>
     <div class="card-body">
+            @if (session('success'))
+            <div class="alert alert-success text-center">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{session('success')}}
+            </div>
+            @endif
+
+            @if (session('error'))
+            <div class="alert alert-danger text-center">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{session('error')}}
+            </div>
+            @endif
         <ul class="list-group list-group-flush">
             <li class="list-group-item text-uppercase font-weight-bold">Receita<p class="total">Total no mês</p></li>
-            @php
-            $i = 1;
-            @endphp
             @foreach ($revenues as $revenue)
             <li class="list-group-item">{{$revenue->name}}
                     @foreach ($revenueAmounts as $item)
@@ -71,14 +109,21 @@
                 @endforeach
             </ul>
         </div>
+        <!-- Button  revenuesAmountModal-->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#revenuesAmountModal">
+            Lançar valores
+        </button>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#revenuesModal">
-            +
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#revenuesModal">
+            Nova receita
         </button>
     </div>
     @endsection
     @section('script')
     <script>
+        $('#revenuesAmountModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        });
         $('#revenuesModal').on('shown.bs.modal', function () {
             $('#myInput').trigger('focus')
         });

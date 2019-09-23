@@ -18,15 +18,13 @@ class RevenuesController extends Controller
     {
         $user = Auth::user();
         $revenues = Revenue::where('user_id', '=', $user->id)->get();
-        // $revenueAmounts = RevenueAmount::get();
         $revenueAmounts = DB::table('revenue_amounts')
         ->join('revenues', 'revenues.id', '=', 'revenue_amounts.revenue_id')
         ->select('revenue_id',DB::raw('sum(value) as total'))
         ->groupBy(DB::raw('revenue_id'))
         ->where('revenues.user_id', '=', $user->id)
         ->get();
-        // dd($revenueAmounts);
-        // $revenueAmounts = Revenue::find(1)->revenueAmounts;
+
         return view('revenues', compact('revenues', 'revenueAmounts'));
     }
 
@@ -48,7 +46,15 @@ class RevenuesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            if($request->user_id != Auth::user()->id){
+                return  redirect()->back()->with('error', 'Erro!');
+            }
+            Revenue::create($request->all());
+            return redirect()->back()->with('success', 'Salvo com sucesso!');
+        } catch (\Throwable $th) {
+            return  redirect()->back()->with('error', 'Erro!');
+        }
     }
 
     /**
