@@ -15,6 +15,7 @@ class ExpensesSubCategoriesSeeder extends Seeder
             [
                 'name' => 'Moradia',
                 'expense_category_id' => 1,
+                'user_id' => 1,
             ],
             [
                 'name' => 'Automóvel',
