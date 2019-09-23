@@ -35,7 +35,7 @@
                     <a class="nav-link" href="{{route('revenues.index')}}">Receitas<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                <a class="nav-link" href="{{route('expenses')}}">Gastos<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{route('expenses.index')}}">Gastos<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
         </div>

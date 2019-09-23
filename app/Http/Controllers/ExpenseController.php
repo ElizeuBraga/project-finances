@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\ExpensesSubCategorie;
+use App\Expense;
+use App\ExpensesCategorie;
 use Illuminate\Http\Request;
-use App\ExpenseCategorie;
 
-class ExpensesSubCategorieController extends Controller
+class ExpenseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class ExpensesSubCategorieController extends Controller
      */
     public function index()
     {
-        $expensesCategories = ExpenseCategorie::all();
+        $expensesCategories = ExpensesCategorie::all();
         return view('expenses', compact('expensesCategories'));
     }
 
@@ -37,22 +37,16 @@ class ExpensesSubCategorieController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            ExpensesSubCategorie::create($request->all());
-            return redirect()->back()->with('success', 'Salvo com sucesso!');
-        } catch (\Throwable $th) {
-            return $th;
-            // return redirect()->back()->with('error', 'Erro!');
-        }
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\ExpensesSubCategorie  $expensesSubCategorie
+     * @param  \App\Expense  $expense
      * @return \Illuminate\Http\Response
      */
-    public function show(ExpensesSubCategorie $expensesSubCategorie)
+    public function show(Expense $expense)
     {
         //
     }
@@ -60,10 +54,10 @@ class ExpensesSubCategorieController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ExpensesSubCategorie  $expensesSubCategorie
+     * @param  \App\Expense  $expense
      * @return \Illuminate\Http\Response
      */
-    public function edit(ExpensesSubCategorie $expensesSubCategorie)
+    public function edit(Expense $expense)
     {
         //
     }
@@ -72,10 +66,10 @@ class ExpensesSubCategorieController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ExpensesSubCategorie  $expensesSubCategorie
+     * @param  \App\Expense  $expense
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ExpensesSubCategorie $expensesSubCategorie)
+    public function update(Request $request, Expense $expense)
     {
         //
     }
@@ -83,10 +77,10 @@ class ExpensesSubCategorieController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ExpensesSubCategorie  $expensesSubCategorie
+     * @param  \App\Expense  $expense
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ExpensesSubCategorie $expensesSubCategorie)
+    public function destroy(Expense $expense)
     {
         //
     }

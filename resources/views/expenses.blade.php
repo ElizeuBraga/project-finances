@@ -26,8 +26,8 @@
         <span aria-hidden="true">&times;</span>
         </button>
         </div>
-    <div class="modal-body">
-    <form action="{{route('revenue-amounts.store')}}" method="POST">
+        <form action="{{route('revenue-amounts.store')}}" method="POST">
+        <div class="modal-body">
             @csrf
             <div class="form-group">
                 <select name="revenue_id" class="custom-select" id="inputGroupSelect01" required>
@@ -58,11 +58,11 @@
         <span aria-hidden="true">&times;</span>
         </button>
         </div>
-    <div class="modal-body">
-    <form action="{{route('expense-categories.store')}}" method="POST">
+        <form action="{{route('expense-categories.store')}}" method="POST">
+        <div class="modal-body">
             @csrf
             <div class="form-group">
-                <label for="">Receita</label>
+            <label for="">Receita</label>
             <input type="hidden" class="form-control" name="user_id" value="{{Auth::user()->id}}" id="" aria-describedby="helpId" placeholder="" required>
             <input type="text" class="form-control" name="name" id="input_name" aria-describedby="helpId" placeholder="" required>
             </div>
@@ -85,14 +85,21 @@
         <span aria-hidden="true">&times;</span>
         </button>
         </div>
-    <div class="modal-body">
-    <form action="{{route('revenues.store')}}" method="POST">
-            @csrf
-            <div class="form-group">
-                <label for="">Receita</label>
-            <input type="hidden" class="form-control" name="user_id" value="{{Auth::user()->id}}" id="" aria-describedby="helpId" placeholder="" required>
-            <input type="text" class="form-control" name="name" id="input_name" aria-describedby="helpId" placeholder="" required>
-            </div>
+        <form action="{{route('expense-sub-categories.store')}}" method="POST">
+        <div class="modal-body">
+        @csrf
+        <div class="form-group">
+        <label for="">Receita</label>
+        <div class="form-group">
+            <label for="">Categorias</label>
+            <select class="form-control" name="expense_category_id" id="">
+            @foreach ($expensesCategories as $expensesCategory)
+            <option value="{{$expensesCategory->id}}">{{$expensesCategory->name}}</option>
+            @endforeach
+            </select>
+        </div>
+        <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId" placeholder="" required>
+        </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
