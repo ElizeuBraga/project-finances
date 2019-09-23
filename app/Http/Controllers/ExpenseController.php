@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Expense;
 use Auth;
+use DB;
 use App\ExpensesCategorie;
 use App\ExpensesSubCategorie;
 use Illuminate\Http\Request;
@@ -19,7 +20,15 @@ class ExpenseController extends Controller
     {
         $expensesCategories = ExpensesCategorie::orderBy('name', 'ASC')->where('user_id', Auth::user()->id)->get();
         $expensesSubCategories = ExpensesSubCategorie::orderBy('name', 'ASC')->where('user_id', Auth::user()->id)->get();
-        return view('expenses', compact('expensesCategories', 'expensesSubCategories'));
+
+        $expenseAmounts = DB::table('expenses_sub_categories')
+        ->select(DB::raw('sum(expenses_amounts.value) as value'), 'expenses_sub_categories.name')
+        ->join('expenses_amounts', 'expenses_amounts.expense_sub_category_id', '=', 'expenses_sub_categories.id')
+        ->groupBy('expenses_sub_categories.name')
+        ->where('expenses_amounts.user_id', '=', Auth::user()->id)
+        ->get();
+
+        return view('expenses', compact('expensesCategories', 'expensesSubCategories', 'expenseAmounts'));
     }
 
     /**

@@ -135,8 +135,12 @@
             @endif
         <ul class="list-group list-group-flush">
             <li class="list-group-item text-uppercase font-weight-bold">Gastos<p class="total">Total no mês</p></li>
-
-            </ul>
+            @foreach ($expenseAmounts as $expenseAmount)
+            <li class="list-group-item">{{$expenseAmount->name}}
+                <p class="total">{{$expenseAmount->value}}</p>
+            </li>
+            @endforeach
+        </ul>
         </div>
         <!-- Button  expensesAmountModal-->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#expensesAmountModal">
