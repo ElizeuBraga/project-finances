@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Expense;
 use App\ExpensesCategorie;
+use App\ExpensesSubCategorie;
 use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
@@ -16,7 +17,8 @@ class ExpenseController extends Controller
     public function index()
     {
         $expensesCategories = ExpensesCategorie::all();
-        return view('expenses', compact('expensesCategories'));
+        $expensesSubCategories = ExpensesSubCategorie::all();
+        return view('expenses', compact('expensesCategories', 'expensesSubCategories'));
     }
 
     /**

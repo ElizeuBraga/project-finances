@@ -26,15 +26,15 @@
         <span aria-hidden="true">&times;</span>
         </button>
         </div>
-        <form action="{{route('revenue-amounts.store')}}" method="POST">
+        <form action="{{route('expense-amounts.store')}}" method="POST">
         <div class="modal-body">
             @csrf
             <div class="form-group">
-                <select name="revenue_id" class="custom-select" id="inputGroupSelect01" required>
-                    {{-- <option value="">Receitas</option>
-                    @foreach ($revenues as $revenue)
-                    <option value="{{$revenue->id}}">{{$revenue->name}}</option>
-                    @endforeach --}}
+                <select name="expense_sub_category_id" class="custom-select" id="inputGroupSelect01" required>
+                    <option value="">Tipo de gasto</option>
+                    @foreach ($expensesSubCategories as $expensesSubCategorie)
+                    <option value="{{$expensesSubCategorie->id}}">{{$expensesSubCategorie->name}}</option>
+                    @endforeach
                 </select>
                 <label for="">Value</label>
                 <input type="text" class="form-control" name="value" id="" aria-describedby="helpId" placeholder="" required>
@@ -93,6 +93,7 @@
         <div class="form-group">
             <label for="">Categorias</label>
             <select class="form-control" name="expense_category_id" id="">
+            <option value="">Categoria</option>
             @foreach ($expensesCategories as $expensesCategory)
             <option value="{{$expensesCategory->id}}">{{$expensesCategory->name}}</option>
             @endforeach

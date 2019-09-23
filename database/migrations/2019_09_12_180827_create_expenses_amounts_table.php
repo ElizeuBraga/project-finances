@@ -16,8 +16,8 @@ class CreateExpensesAmountsTable extends Migration
         Schema::create('expenses_amounts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->double('value');
-            $table->bigInteger('expense_amount_id')->unsigned();
-            $table->foreign('expense_amount_id')->references('id')->on('expenses_sub_categories');
+            $table->bigInteger('expense_sub_category_id')->unsigned();
+            $table->foreign('expense_sub_category_id')->references('id')->on('expenses_sub_categories');
             $table->timestamps();
         });
     }

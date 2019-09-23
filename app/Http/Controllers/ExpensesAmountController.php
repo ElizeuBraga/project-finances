@@ -35,7 +35,14 @@ class ExpensesAmountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            ExpensesAmount::create($request->all());
+            return redirect()->back()->with('success', 'Salvo com sucesso!');
+        } catch (\Throwable $th) {
+            // throw $th;
+            return redirect()->back()->with('error', 'Erro!');
+
+        }
     }
 
     /**
