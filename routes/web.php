@@ -18,12 +18,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::resource("revenues", "RevenuesController");
-Route::resource("revenue-amounts", "RevenueAmountsController");
-Route::resource("expenses", "ExpenseController");
-Route::resource("expense-amounts", "ExpensesAmountController");
-Route::resource("expense-categories", "ExpensesCategorieController");
-Route::resource("expense-sub-categories", "ExpensesSubCategorieController");
+Route::resource("revenues", "RevenuesController")->middleware('auth');
+Route::resource("revenue-amounts", "RevenueAmountsController")->middleware('auth');
+Route::resource("expenses", "ExpenseController")->middleware('auth');
+Route::resource("expense-amounts", "ExpensesAmountController")->middleware('auth');
+Route::resource("expense-categories", "ExpensesCategorieController")->middleware('auth');
+Route::resource("expense-sub-categories", "ExpensesSubCategorieController")->middleware('auth');
 
 // Route::get('/perfil/{user}', 'UserController@edit')->name('user.edit');
 // Route::put('/perfil/{user}/editar', 'UserController@update')->name('user.update');

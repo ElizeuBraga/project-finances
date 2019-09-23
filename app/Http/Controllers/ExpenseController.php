@@ -16,8 +16,8 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expensesCategories = ExpensesCategorie::all();
-        $expensesSubCategories = ExpensesSubCategorie::all();
+        $expensesCategories = ExpensesCategorie::orderBy('name', 'ASC')->get();
+        $expensesSubCategories = ExpensesSubCategorie::orderBy('name', 'ASC')->get();
         return view('expenses', compact('expensesCategories', 'expensesSubCategories'));
     }
 

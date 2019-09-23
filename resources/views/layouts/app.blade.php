@@ -37,6 +37,30 @@
                 <li class="nav-item active">
                 <a class="nav-link" href="{{route('expenses.index')}}">Gastos<span class="sr-only">(current)</span></a>
                 </li>
+                <div class="dropdown">
+                    <button style="right: 0; left: auto;" class="btn dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        @auth
+                            {{Auth::user()->name}}
+                        @endauth
+                        @guest
+                            Cadastre-se
+                        @endguest
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="triggerId">
+                        @auth
+                            <a class="dropdown-item" href="#">Perfil</a>
+                            <form action="{{route('logout')}}" method="POST">
+                                @csrf
+                                <button type="submit" class="dropdown-item" href="#">Sair</button>
+                            </form>
+                        @endauth
+                        @guest
+                        <a class="dropdown-item" href="{{route('register')}}">Cadastre-se</a>
+                        <a class="dropdown-item" href="{{route('login')}}">Login</a>
+                        @endguest
+                    </div>
+                </div>
             </ul>
         </div>
     </nav>

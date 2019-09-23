@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="row justify-content-center">
+{{-- <div class="row justify-content-center">
     <img src="/imgs/red-pig.svg">
 </div>
 <div class="row">
@@ -18,5 +18,5 @@
           <a href="/livrosparaler" class="w3-button w3-red">Oba! quero ver</a>
       </div>
     </div>
-  </div>
+  </div> --}}
 @endsection
