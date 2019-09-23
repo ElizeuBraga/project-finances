@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\ExpensesSubCategorie;
 use Illuminate\Http\Request;
-use App\Category;
 
-class CategoryController extends Controller
+class ExpensesSubCategorieController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('category');
+        return view('expenses');
     }
 
     /**
@@ -25,7 +25,6 @@ class CategoryController extends Controller
     public function create()
     {
         //
-        return view('category');
     }
 
     /**
@@ -36,21 +35,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = new Category();
-        $category->user_id = $request['user_id'];
-        $category->name = $request['name'];
-        $category->save();
-
-        return redirect()->back()->with('success', 'Salvo com sucesso');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\ExpensesSubCategorie  $expensesSubCategorie
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ExpensesSubCategorie $expensesSubCategorie)
     {
         //
     }
@@ -58,10 +52,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\ExpensesSubCategorie  $expensesSubCategorie
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ExpensesSubCategorie $expensesSubCategorie)
     {
         //
     }
@@ -70,10 +64,10 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\ExpensesSubCategorie  $expensesSubCategorie
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ExpensesSubCategorie $expensesSubCategorie)
     {
         //
     }
@@ -81,10 +75,10 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\ExpensesSubCategorie  $expensesSubCategorie
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ExpensesSubCategorie $expensesSubCategorie)
     {
         //
     }

@@ -1,78 +1,157 @@
 @extends('layouts.app')
+@section('style')
+    <style>
+        h1{
+            font-size: 25px;
+        }
 
+        .total{
+            float: right;
+        }
+
+        .btn, .card{
+            border-radius: 0px;
+        }
+    </style>
+@endsection
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Meus gastos</div>
-                <div class="card-body">
-                    @if (session('success'))
-                    <div class="alert alert-success">
-                        {{session('success')}}
-                    </div>
-                    @endif
-                    @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{session('error')}}
-                    </div>
-                    @endif
-                    <form action="{{route('expenses.submit')}}" method="POST">
-                        <div class="form-group">
-                            @csrf
-                            @method('POST')
-                            <label for="">Selecione um produto</label>
-                            <select name="product_id" id="" class="form-control" required>
-                                <option value="">Selecione</option>
-                                @foreach ($products as $product)
-                                <option value="{{$product->id}}">{{$product->name}}</option>
-                                @endforeach
-                            </select>
-                            <br>
-                            <label for="">Preço</label>
-                            <input class="dinheiro form-control" type="text" name="price" required>
-                            <br>
-                            <button class="btn btn-primary btn-lg col-md" type="submit">Salvar</button>
-                            <br>
-                            <br>
-                            <a name="" id="" class="btn btn-primary btn-lg col-md" href="{{route('product')}}" role="button">Novo produto</a>
-                    </form>
-                </div>
-                <div class="card-body">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Produto</td>
-                                    <th>Categoria</td>
-                                    <th>Valor</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($expenses as $expense)
-                                <tr>
-                                    <td>
-                                        {{$expense->name}}
-                                        @if (Carbon\Carbon::parse($expense->created_at)->format('d') == date('d'))
-                                        <span style="font-size: 11px; color:green;">Hoje</span>
-                                        @endif
 
-                                        @if (Carbon\Carbon::parse($expense->created_at)->format('d') == date('d') - 1)
-                                        <span style="font-size: 11px; color:orange;">Ontem</span>
-                                        @endif
-                                    </td>
-                                    <td>{{$expense->category_name}}</td>
-                                    <td><b>R$</b> {{ number_format($expense->price, 2)}}</td>
-                                </tr>
-                                @endforeach
-                                <tr style="background:tomato;">
-                                    <td><b>Total</b></td>
-                                    <td></td>
-                                    <td style=""><b>R$</b> {{number_format($total_price, 2)}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+<!-- Modal revenueAmount-->
+<div class="modal fade" id="expensesAmountModal" tabindex="-1" role="dialog" aria-labelledby="expensesAmountModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="expensesAmountModalLabel">Gastos</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    <div class="modal-body">
+    <form action="{{route('revenue-amounts.store')}}" method="POST">
+            @csrf
+            <div class="form-group">
+                <select name="revenue_id" class="custom-select" id="inputGroupSelect01" required>
+                    {{-- <option value="">Receitas</option>
+                    @foreach ($revenues as $revenue)
+                    <option value="{{$revenue->id}}">{{$revenue->name}}</option>
+                    @endforeach --}}
+                </select>
+                <label for="">Value</label>
+                <input type="text" class="form-control" name="value" id="" aria-describedby="helpId" placeholder="" required>
             </div>
         </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+    </form>
+</div>
+</div>
+</div>
+<!-- Modal expensesCategories-->
+<div class="modal fade" id="expensesCategoriesModal" tabindex="-1" role="dialog" aria-labelledby="expensesCategoriesModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="expensesCategoriesModalLabel">Categorias de gastos</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    <div class="modal-body">
+    <form action="{{route('expense-categories.store')}}" method="POST">
+            @csrf
+            <div class="form-group">
+                <label for="">Receita</label>
+            <input type="hidden" class="form-control" name="user_id" value="{{Auth::user()->id}}" id="" aria-describedby="helpId" placeholder="" required>
+            <input type="text" class="form-control" name="name" id="input_name" aria-describedby="helpId" placeholder="" required>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+    </form>
+</div>
+</div>
+</div>
+<!-- Modal expensesSubCategories-->
+<div class="modal fade" id="expensesSubCategoriesModal" tabindex="-1" role="dialog" aria-labelledby="expensesSubCategoriesModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="expensesSubCategoriesModalLabel">Sub Categorias de gastos</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    <div class="modal-body">
+    <form action="{{route('revenues.store')}}" method="POST">
+            @csrf
+            <div class="form-group">
+                <label for="">Receita</label>
+            <input type="hidden" class="form-control" name="user_id" value="{{Auth::user()->id}}" id="" aria-describedby="helpId" placeholder="" required>
+            <input type="text" class="form-control" name="name" id="input_name" aria-describedby="helpId" placeholder="" required>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+    </form>
+</div>
+</div>
+</div>
+{{-- receitas.store --}}
+
+{{-- card --}}
+<div class="card">
+    <div class="card-header text-center">
+        <h1>Meus Gastos</h1>
+    </div>
+    <div class="card-body">
+            @if (session('success'))
+            <div class="alert alert-success text-center">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{session('success')}}
+            </div>
+            @endif
+
+            @if (session('error'))
+            <div class="alert alert-danger text-center">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{session('error')}}
+            </div>
+            @endif
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item text-uppercase font-weight-bold">Gastos<p class="total">Total no mês</p></li>
+
+            </ul>
+        </div>
+        <!-- Button  expensesAmountModal-->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#expensesAmountModal">
+            Lançar valores
+        </button>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#expensesCategoriesModal">
+            Nova categoria
+        </button>
+        <!-- Button trigger modal subcategories-->
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#expensesSubCategoriesModal">
+            Nova sub categoria
+        </button>
     </div>
     @endsection
+    @section('script')
+    <script>
+        $('#expensesAmountModal').on('shown.bs.modal', function () {
+            // $('#myInput').trigger('focus')
+        });
+        $('#expensesCategoriesModal').on('shown.bs.modal', function () {
+            $('#input_name').trigger('focus')
+        });
+        $('#expensesSubCategoriesModal').on('shown.bs.modal', function () {
+            $('#input_name').trigger('focus')
+        });
+    </script>
+@endsection

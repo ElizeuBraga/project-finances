@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\ExpensesCategorie;
+use Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
-use App\Incomes;
 
-
-class IncomesController extends Controller
+class ExpensesCategorieController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,7 @@ class IncomesController extends Controller
      */
     public function index()
     {
-        //
-        
+        return view('expenses');
     }
 
     /**
@@ -27,7 +25,7 @@ class IncomesController extends Controller
      */
     public function create()
     {
-        return view('incomes');
+        //
     }
 
     /**
@@ -38,20 +36,25 @@ class IncomesController extends Controller
      */
     public function store(Request $request)
     {
-        $input = Input::all();
-        $incomes = new Incomes();
-        $incomes -> fill($input);
-        $incomes ->save();
-        return redirect('/carteira');
+        try {
+            if($request->user_id != Auth::user()->id){
+                return  redirect()->back()->with('error', 'Erro!');
+            }
+            ExpensesCategorie::create($request->all());
+            return redirect()->back()->with('success', 'Salvo com sucesso!');
+        } catch (\Throwable $th) {
+            // return  redirect()->back()->with('error', 'Erro!');
+            return  $th;
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\ExpensesCategorie  $expensesCategorie
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ExpensesCategorie $expensesCategorie)
     {
         //
     }
@@ -59,10 +62,10 @@ class IncomesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\ExpensesCategorie  $expensesCategorie
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ExpensesCategorie $expensesCategorie)
     {
         //
     }
@@ -71,10 +74,10 @@ class IncomesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\ExpensesCategorie  $expensesCategorie
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ExpensesCategorie $expensesCategorie)
     {
         //
     }
@@ -82,10 +85,10 @@ class IncomesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\ExpensesCategorie  $expensesCategorie
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ExpensesCategorie $expensesCategorie)
     {
         //
     }
