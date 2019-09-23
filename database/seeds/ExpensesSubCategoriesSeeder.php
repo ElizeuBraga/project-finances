@@ -14,8 +14,8 @@ class ExpensesSubCategoriesSeeder extends Seeder
         DB::table('expenses_sub_categories')->insert([
             [
                 'name' => 'Moradia',
-                'expense_category_id' => 1,
                 'user_id' => 1,
+                'expense_category_id' => 1,
             ],
             [
                 'name' => 'Automóvel',
