@@ -117,7 +117,11 @@
 {{-- card --}}
 <div class="card">
     <div class="card-header text-center">
+        @php
+            $now = new Carbon\Carbon();
+        @endphp
         <h1>Meus Gastos</h1>
+        <h6>{{$now->formatLocalized('%B')}}</h6>
     </div>
     <div class="card-body">
             @if (session('success'))

@@ -26,6 +26,7 @@ class ExpenseController extends Controller
         ->join('expenses_amounts', 'expenses_amounts.expense_sub_category_id', '=', 'expenses_sub_categories.id')
         ->groupBy('expenses_sub_categories.name')
         ->where('expenses_amounts.user_id', '=', Auth::user()->id)
+        ->whereMonth('expenses_amounts.created_at', '=', date('m'))
         ->get();
 
         return view('expenses', compact('expensesCategories', 'expensesSubCategories', 'expenseAmounts'));
