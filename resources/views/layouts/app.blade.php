@@ -28,6 +28,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
+                @auth
                 <li class="nav-item active">
                     <a class="nav-link" href="{{route('home')}}">Home<span class="sr-only">(current)</span></a>
                 </li>
@@ -35,8 +36,9 @@
                     <a class="nav-link" href="{{route('revenues.index')}}">Receitas<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                <a class="nav-link" href="{{route('expenses.index')}}">Gastos<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{route('expenses.index')}}">Gastos<span class="sr-only">(current)</span></a>
                 </li>
+                @endauth
                 <div class="dropdown">
                     <button style="right: 0; left: auto;" class="btn dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">

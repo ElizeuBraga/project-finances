@@ -23,6 +23,7 @@ class RevenuesController extends Controller
         ->select('revenue_id',DB::raw('sum(value) as total'))
         ->groupBy(DB::raw('revenue_id'))
         ->where('revenues.user_id', '=', $user->id)
+        ->whereMonth('expenses_amounts.created_at', '=', date('m'))
         ->get();
 
         return view('revenues', compact('revenues', 'revenueAmounts'));
