@@ -168,9 +168,9 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item text-uppercase font-weight-bold">Gastos<p class="total">Total no mês</p>
             </li>
-            @foreach ($expenseAmounts as $expenseAmount)
-            <li class="list-group-item">{{$expenseAmount->name}}
-                <p class="total">{{$expenseAmount->value}}</p>
+            @foreach ($expenseAmounts as $eA)
+            <li class="list-group-item">{{$eA->name}}
+                <p class="total">{{number_format($eA->value, 2)}}</p>
             </li>
             @endforeach
         </ul>
