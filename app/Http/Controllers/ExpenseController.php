@@ -25,11 +25,20 @@ class ExpenseController extends Controller
         ->select(DB::raw('sum(expenses_amounts.value) as value'), 'expenses_sub_categories.name')
         ->join('expenses_amounts', 'expenses_amounts.expense_sub_category_id', '=', 'expenses_sub_categories.id')
         ->groupBy('expenses_sub_categories.name')
-        ->where('expenses_amounts.user_id', '=', Auth::user()->id)
         ->whereMonth('expenses_amounts.created_at', '=', date('m'))
+        ->whereYear('expenses_amounts.created_at', '=', date('Y'))
+        ->where('expenses_amounts.user_id', '=', Auth::user()->id)
         ->get();
 
-        return view('expenses', compact('expensesCategories', 'expensesSubCategories', 'expenseAmounts'));
+        $expensesRecents = DB::table('expenses_sub_categories')
+        ->select('expenses_sub_categories.name', 'expenses_amounts.value', 'expenses_amounts.created_at')
+        ->join('expenses_amounts', 'expenses_amounts.expense_sub_category_id', '=', 'expenses_sub_categories.id')
+        ->whereDate('expenses_amounts.created_at', '=', date('Y-m-d'))
+        ->orWhereDay('expenses_amounts.created_at', '=', date('d') - 1)
+        ->where('expenses_amounts.user_id', '=', Auth::user()->id)
+        ->get();
+
+        return view('expenses', compact('expensesCategories', 'expensesSubCategories', 'expenseAmounts', 'expensesRecents'));
     }
 
     /**
