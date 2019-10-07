@@ -35,6 +35,7 @@ class ExpenseController extends Controller
         ->join('expenses_amounts', 'expenses_amounts.expense_sub_category_id', '=', 'expenses_sub_categories.id')
         ->whereDate('expenses_amounts.created_at', '=', date('Y-m-d'))
         ->orWhereDay('expenses_amounts.created_at', '=', date('d') - 1)
+        ->orderBy('expenses_amounts.created_at', 'DESC')
         ->where('expenses_amounts.user_id', '=', Auth::user()->id)
         ->get();
 
