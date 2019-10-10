@@ -28,7 +28,7 @@
         <div class="">
             @foreach ($expensesRecents as $eR)
             <p class="{{Carbon\Carbon::parse($eR->created_at)->format('d') == date('d') ? 'text-success' : 'text-warning'}}">
-                {{$eR->name}} - {{number_format($eR->value, 2)}}
+                {{$eR->name}} - {{number_format($eR->value, 2)}} - {{Carbon\Carbon::parse($rR->created_at)->format('(d/m/Y H:i))')}}
             </p>
             @endforeach
         </div>
