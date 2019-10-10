@@ -15,7 +15,23 @@
     </style>
 @endsection
 @section('content')
-
+<p>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+        aria-expanded="false" aria-controls="collapseExample">
+        Inseridos recentemente
+    </button>
+</p>
+<div class="collapse" id="collapseExample">
+    <div class="card card-body">
+        <div class="">
+            @foreach ($revenuesRecents as $rR)
+            <p class="{{Carbon\Carbon::parse($rR->created_at)->format('d') == date('d') ? 'text-success' : 'text-warning'}}">
+                {{$rR->name}} - {{number_format($rR->value, 2)}}
+            </p>
+            @endforeach
+        </div>
+    </div>
+</div>
 <!-- Modal revenueAmount-->
 <div class="modal fade" id="revenuesAmountModal" tabindex="-1" role="dialog" aria-labelledby="revenuesAmountModalLabel" aria-hidden="true">
 <div class="modal-dialog" role="document">

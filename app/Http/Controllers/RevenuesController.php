@@ -26,7 +26,16 @@ class RevenuesController extends Controller
         ->whereMonth('revenue_amounts.created_at', '=', date('m'))
         ->get();
 
-        return view('revenues', compact('revenues', 'revenueAmounts'));
+        $revenuesRecents = DB::table('revenues')
+        ->select('revenues.name', 'revenue_amounts.value', 'revenue_amounts.created_at')
+        ->join('revenue_amounts', 'revenue_amounts.revenue_id', '=', 'revenues.id')
+        ->whereDate('revenue_amounts.created_at', '=', date('Y-m-d'))
+        ->orWhereDay('revenue_amounts.created_at', '=', date('d') - 1)
+        ->orderBy('revenue_amounts.created_at', 'DESC')
+        ->where('revenue_amounts.user_id', '=', Auth::user()->id)
+        ->get();
+
+        return view('revenues', compact('revenues', 'revenueAmounts', 'revenuesRecents'));
     }
 
     /**
