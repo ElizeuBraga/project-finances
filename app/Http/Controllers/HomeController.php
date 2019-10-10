@@ -26,8 +26,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $revenueAmounts = \App\RevenueAmount::where('user_id', Auth::user()->id)->get();
-        $expensesAmounts = \App\ExpensesAmount::where('user_id', Auth::user()->id)->get();
+        $revenueAmounts = \App\RevenueAmount::where('user_id', Auth::user()->id)
+        ->whereDate('created_at', date('Y-m-d'))
+        ->whereMonth('created_at', date('m'))
+        ->get();
+        $expensesAmounts = \App\ExpensesAmount::where('user_id', Auth::user()->id)
+        ->whereDate('created_at', date('Y-m-d'))
+        ->whereMonth('created_at', date('m'))
+        ->get();
+
         $totalRevenue = 0;
         $totalExpense = 0;
         foreach ($revenueAmounts as $rA) {
