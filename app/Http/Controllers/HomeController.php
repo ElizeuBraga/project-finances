@@ -27,11 +27,11 @@ class HomeController extends Controller
     public function index()
     {
         $revenueAmounts = \App\RevenueAmount::where('user_id', Auth::user()->id)
-        ->whereDate('created_at', date('Y-m-d'))
+        ->whereYear('created_at', date('Y'))
         ->whereMonth('created_at', date('m'))
         ->get();
         $expensesAmounts = \App\ExpensesAmount::where('user_id', Auth::user()->id)
-        ->whereDate('created_at', date('Y-m-d'))
+        ->whereYear('created_at', date('Y'))
         ->whereMonth('created_at', date('m'))
         ->get();
 
@@ -43,6 +43,7 @@ class HomeController extends Controller
         foreach ($expensesAmounts as $eA) {
             $totalExpense += $eA->value;
         }
+
         return view('home', compact('revenueAmounts', 'totalRevenue', 'totalExpense'));
     }
 }
