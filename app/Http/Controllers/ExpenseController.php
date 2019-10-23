@@ -33,8 +33,8 @@ class ExpenseController extends Controller
         $expensesRecents = DB::table('expenses_sub_categories')
         ->select('expenses_sub_categories.name', 'expenses_amounts.value', 'expenses_amounts.created_at')
         ->join('expenses_amounts', 'expenses_amounts.expense_sub_category_id', '=', 'expenses_sub_categories.id')
-        ->whereDate('expenses_amounts.created_at', '=', date('Y-m-d'))
-        ->orWhereDay('expenses_amounts.created_at', '=', date('d') - 1)
+        ->whereYear('expenses_amounts.created_at', '=', date('Y'))
+        ->orWhereMonth('expenses_amounts.created_at', '=', date('m'))
         ->orderBy('expenses_amounts.created_at', 'DESC')
         ->where('expenses_amounts.user_id', '=', Auth::user()->id)
         ->get();

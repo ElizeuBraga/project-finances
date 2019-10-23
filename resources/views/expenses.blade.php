@@ -29,8 +29,10 @@
     <div class="card card-body">
         <div class="">
             @foreach ($expensesRecents as $eR)
-            <p class="{{Carbon\Carbon::parse($eR->created_at)->format('d') == date('d') ? 'text-success' : 'text-warning'}}">
-                {{$eR->name}} - {{number_format($eR->value, 2)}} - {{Carbon\Carbon::parse($eR->created_at)->format('(d/m/Y H:i))')}}
+            <p class="{{Carbon\Carbon::parse($eR->created_at)->format('d') == date('d') ? 'text-success' : ''}}">
+                {{$eR->name}}
+                {{number_format($eR->value, 2)}}
+                {{Carbon\Carbon::parse($eR->created_at)->format('(d/m/Y H:i))')}}
             </p>
             @endforeach
         </div>
@@ -194,13 +196,13 @@
 @section('script')
 <script>
     $('#expensesAmountModal').on('shown.bs.modal', function () {
-            // $('#myInput').trigger('focus')
-        });
-        $('#expensesCategoriesModal').on('shown.bs.modal', function () {
-            $('#input_name').trigger('focus')
-        });
-        $('#expensesSubCategoriesModal').on('shown.bs.modal', function () {
-            $('#input_name').trigger('focus')
-        });
+        // $('#myInput').trigger('focus')
+    });
+    $('#expensesCategoriesModal').on('shown.bs.modal', function () {
+        $('#input_name').trigger('focus')
+    });
+    $('#expensesSubCategoriesModal').on('shown.bs.modal', function () {
+        $('#input_name').trigger('focus')
+    });
 </script>
 @endsection
