@@ -34,7 +34,7 @@ class ExpenseController extends Controller
         ->select('expenses_sub_categories.name', 'expenses_amounts.value', 'expenses_amounts.created_at')
         ->join('expenses_amounts', 'expenses_amounts.expense_sub_category_id', '=', 'expenses_sub_categories.id')
         ->whereYear('expenses_amounts.created_at', '=', date('Y'))
-        ->orWhereMonth('expenses_amounts.created_at', '=', date('m'))
+        ->whereMonth('expenses_amounts.created_at', '=', date('m'))
         ->orderBy('expenses_amounts.created_at', 'DESC')
         ->where('expenses_amounts.user_id', '=', Auth::user()->id)
         ->get();
