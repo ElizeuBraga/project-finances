@@ -17,12 +17,14 @@
 @endsection
 @section('content')
 {{-- colapse --}}
-<p>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
-        aria-expanded="false" aria-controls="collapseExample">
-        Inseridos recentemente
-    </button>
-</p>
+<div class="row">
+    <div class="col-12">
+        <button class="btn btn-primary col-12" type="button" data-toggle="collapse" data-target="#collapseExample"
+            aria-expanded="false" aria-controls="collapseExample">
+            Inseridos recentemente
+        </button>
+    </div>
+</div>
 <div class="collapse" id="collapseExample">
     <div class="card card-body">
         <div class="">
