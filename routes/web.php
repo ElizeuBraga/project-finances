@@ -18,7 +18,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
+Route::get("lerics/sendWordsToMail", "LericsController@sendWordsToMail")->middleware('auth');
 Route::resource("lerics", "LericsController")->middleware('auth');
+
 Route::resource("revenues", "RevenuesController")->middleware('auth');
 Route::resource("revenue-amounts", "RevenueAmountsController")->middleware('auth');
 Route::resource("expenses", "ExpenseController")->middleware('auth');

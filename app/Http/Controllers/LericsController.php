@@ -3,9 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Mail;
 
 class LericsController extends Controller
 {
+    public function sendWordsToMail(Request $request){
+            //code...
+            $email = \Auth::user()->email;
+            
+            Mail::send('mails.sendDonKnowWords', ['data' => $request], function($message) use($email){
+                $message->to($email)->subject('Palavras desconhecidas');
+                $message->from('elizeubraga712@gmail.com');
+            });
+
+            // return response()->json(['response'=>'Email enviado']);
+            return response()->json($email);
+    }
+
     public function process_leric($leric){
         $l = str_word_count($leric, 1);
         $leric_processed = [];

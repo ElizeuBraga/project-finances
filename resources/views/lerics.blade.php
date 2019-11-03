@@ -12,7 +12,13 @@
     </div>
     
     <div class="">
-        <div class="row" v-for = "word in words">
+    <p class="text-info">Tipos de palavras @{{words.count}}</p>
+    <p class="text-success">Conhecidas @{{knowWords.count}}</p>
+    <p class="text-danger">Desconhecidas @{{donKnowWords.count}}</p>
+    <b><p v-if="init && words.count == 0">Parabéns vc concluiu, vc tem <span class="text-success">@{{donKnowWords.count}}</span> palavras para estudar
+        <button v-if="init && words.count == 0 && donKnowWords.count != 0" class="btn btn-secondary" v-on:click="sendWordsToMail()">Enviar</button>
+    </p></b>
+        <div class="row" v-for = "word in words.words">
             <div class="col-4">
                 <button class="btn btn-primary" v-on:click="knowMethod(word)">Sim</button>
             </div>
@@ -28,14 +34,14 @@
     <div class="row">
         <div  class="col-6">
             <h3>Sei</h3>
-            <div v-for = "knowWord in knowWords">
+            <div v-for = "knowWord in knowWords.knowWords">
                 <p class="text-success" >@{{knowWord}}</p>
             </div>
         </div>
         
         <div class="col-6">
             <h3>Não sei</h3>
-            <div v-for = "donKnowWord in donKnowWords">
+            <div v-for = "donKnowWord in donKnowWords.donKnowWords">
                 <p class="text-danger">@{{donKnowWord}}</p>
             </div>
         </div>
@@ -49,41 +55,76 @@
     var leric = new Vue({
         el: "#lerics",
         data:{
-            words: [],
-            knowWords: [],
-            donKnowWords: [],
+            init:false,
+            words: {
+                count:0,
+                words: []
+            },
+            knowWords: {
+                count: 0,
+                knowWords: []
+            },
+            donKnowWords: {
+                count:0,
+                donKnowWords: []
+            },
             textarea:null
         },
 
         mounted: function(){
         },
 
-        methods:{   
-            knowMethod: function(w){
-                this.knowWords.push(w);
-                var index = this.words.indexOf(w);
-                if (index > -1) {
-                    this.words.splice(index, 1);
-                }
-            },
-
-            donKnowMethod: function(w){
-                this.donKnowWords.push(w);
-                var index = this.words.indexOf(w);
-                if (index > -1) {
-                    this.words.splice(index, 1);
-                }
-            },
-
-            myFunction: function(str){
-                return axios.post('/lerics', {leric:str})
+        methods:{
+            sendWordsToMail: function(){
+                return axios.get('/lerics/sendWordsToMail', {donKnowWords: this.donKnowWords.donKnowWords})
                 .then((response) => {
-                    this.words = response.data
+                    console.log(response)
                 })
                 .catch((e) => {
                     console.error(e)
                 })
+            },
 
+            knowMethod: function(w){
+                this.init = true
+                this.knowWords.knowWords.push(w);
+                this.knowWords.count +=1
+                this.words.count -= 1
+                var index = this.words.words.indexOf(w);
+                if (index > -1) {
+                    this.words.words.splice(index, 1);
+                }
+
+                // if(this.init && this.words.count == 0 && this.donKnowWords.count != 0){
+                //     this.sendMail()
+                // }
+            },
+
+            donKnowMethod: function(w){
+                this.init = true
+                this.donKnowWords.donKnowWords.push(w);
+                this.donKnowWords.count += 1
+                this.words.count -= 1
+                var index = this.words.words.indexOf(w);
+                if (index > -1) {
+                    this.words.words.splice(index, 1);
+                }
+
+                // if(this.init && this.words.count == 0 && this.donKnowWords.count != 0){
+                //     this.sendMail()
+                // }
+            },
+
+            myFunction: function(str){
+                this.textarea = null
+                return axios.post('/lerics', {leric:str})
+                .then((response) => {
+                    this.words.words = response.data
+                    this.words.count = this.words.words.length
+                })
+                .catch((e) => {
+                    console.error(e)
+                })
             }
         }
     });
