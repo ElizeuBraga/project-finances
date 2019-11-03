@@ -11,16 +11,17 @@
             background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
         }
         .container{
-            margin-top: 2%;
+            margin-top: 1%;
             background: white;
-            margin-bottom: 2%;
-            width: 99%;
+            margin-bottom: 1%;
+            min-width: 98%;
         }
     </style>
     @yield('style')
 </head>
 <body>
-    <div class="container">
+    {{-- @include ('footer') --}}
+    <div class="container" id="app">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Finanças</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +41,7 @@
                 </li>
                 @endauth
                 <div class="dropdown">
-                    <button style="right: 0; left: auto;" class="btn dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
+                    <button class="btn dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
                         @auth
                             {{Auth::user()->name}}
@@ -68,8 +69,19 @@
     </nav>
         @yield('content')
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{{asset('/js/jquery-3.4.1.min.js')}}"></script>
     <script src="{{asset('/vendor/bootstrap/js/bootstrap.js')}}"></script>
     @yield('script')
+
+    {{-- <script>
+        var app = new Vue({
+            el: "#app",
+            data:{
+
+            }
+        });
+    </script> --}}
 </body>
 </html>
