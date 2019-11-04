@@ -4,24 +4,40 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Mail;
+use App\Leric;
 
 class LericsController extends Controller
 {
     public function sendWordsToMail(Request $request){
-            //code...
-            $email = \Auth::user()->email;
-            
-            Mail::send('mails.sendDonKnowWords', ['data' => $request], function($message) use($email){
+            try {
+                $data = $request->unknowWords;
+                $email = \Auth::user()->email;
+                Mail::send('mails.sendDonKnowWords', ['data' => $data], function($message) use($email){
                 $message->to($email)->subject('Palavras desconhecidas');
-                $message->from('elizeubraga712@gmail.com');
-            });
+                $message->from('idrinktcc@gmail.com');
+                });
+    
+                return response()->json($data);
+            } catch (\Throwable $th) {
+                //throw $th;
+                return response()->json($th);
+            }
+    }
 
-            // return response()->json(['response'=>'Email enviado']);
-            return response()->json($email);
+    public function storeWord(Request $request){
+        if (Leric::where('word', '=', $request->word)->count() > 0) {
+            //value exists
+        }else{
+            $leric = new Leric;
+            $leric->word = $request->word; 
+            $leric->status = $request->status; 
+            $leric->save();
+        }
     }
 
     public function process_leric($leric){
-        $l = str_word_count($leric, 1);
+        $le = str_word_count($leric, 1);
+        $l = array_map('strtolower', $le);
         $leric_processed = [];
 
         for ($i=0; $i < count($l) ; $i++) {

@@ -76,9 +76,10 @@
 
         methods:{
             sendWordsToMail: function(){
-                return axios.get('/lerics/sendWordsToMail', {donKnowWords: this.donKnowWords.donKnowWords})
+                var unknowWords = this.donKnowWords.donKnowWords
+                return axios.post('/lerics/sendWordsToMail', {unknowWords})
                 .then((response) => {
-                    console.log(response)
+                    console.log(response.data)
                 })
                 .catch((e) => {
                     console.error(e)
@@ -86,33 +87,43 @@
             },
 
             knowMethod: function(w){
+                axios.post('/lerics/storeWord', {word: w, status:1})
+                .then((response) => {
+                    // console.log(response.data)
+                })
+                .catch((e) => {
+                    console.error(e)
+                })
+
                 this.init = true
                 this.knowWords.knowWords.push(w);
                 this.knowWords.count +=1
                 this.words.count -= 1
                 var index = this.words.words.indexOf(w);
+
                 if (index > -1) {
                     this.words.words.splice(index, 1);
                 }
-
-                // if(this.init && this.words.count == 0 && this.donKnowWords.count != 0){
-                //     this.sendMail()
-                // }
             },
 
             donKnowMethod: function(w){
+                axios.post('/lerics/storeWord', {word: w, status:0})
+                .then((response) => {
+                    // console.log(response.data)
+                })
+                .catch((e) => {
+                    console.error(e)
+                })
+
                 this.init = true
                 this.donKnowWords.donKnowWords.push(w);
                 this.donKnowWords.count += 1
                 this.words.count -= 1
                 var index = this.words.words.indexOf(w);
+
                 if (index > -1) {
                     this.words.words.splice(index, 1);
                 }
-
-                // if(this.init && this.words.count == 0 && this.donKnowWords.count != 0){
-                //     this.sendMail()
-                // }
             },
 
             myFunction: function(str){

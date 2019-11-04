@@ -7,6 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    {{$data}}
+    @foreach ($data as $d)
+    <p>{{$d}}</p>
+    @endforeach
 </body>
 </html>
