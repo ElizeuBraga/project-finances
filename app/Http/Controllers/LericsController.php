@@ -43,6 +43,9 @@ class LericsController extends Controller
             $leric->status = $request->status; 
             $leric->save();
         }
+
+        $wordCount = Leric::count();
+        return response()->json($wordCount);
     }
 
     public function process_leric($leric){
@@ -80,7 +83,8 @@ class LericsController extends Controller
      */
     public function index()
     {
-        return view('lerics');
+        $wordCount = Leric::count();
+        return view('lerics', compact('wordCount'));
     }
 
     /**

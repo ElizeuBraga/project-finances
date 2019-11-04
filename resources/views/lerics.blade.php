@@ -9,6 +9,7 @@
                 
         </textarea>
         <button class="btn btn-primary" v-on:click="myFunction(textarea);">Enviar</button>
+        Quantidade de palavras: @{{words.wordCount}}
     </div>
     
     <div class="">
@@ -51,10 +52,7 @@
 @endsection
 @section('script')
 <script>
-    var config = {
-        // url: 'https://wordsapiv1.p.rapidapi.com/words/hatchback/typeOf',
-        
-    };
+    var wordCount = {!!json_encode($wordCount)!!}
 
     // console.log(data);
     var leric = new Vue({
@@ -69,7 +67,8 @@
             init:false,
             words: {
                 count:0,
-                words: []
+                words: [],
+                wordCount: wordCount
             },
             knowWords: {
                 count: 0,
@@ -104,7 +103,8 @@
                 var unknowWords = this.donKnowWords.donKnowWords
                 return axios.post('/lerics/sendWordsToMail', {unknowWords})
                 .then((response) => {
-                    console.log(response.data)
+                    // console.log(response.data)
+                    this.words.wordCount = response.data
                 })
                 .catch((e) => {
                     console.error(e)
@@ -116,6 +116,7 @@
                 axios.post('/lerics/storeWord', {word: w, status:1})
                 .then((response) => {
                     // console.log(response.data)
+                    this.words.wordCount = response.data
                 })
                 .catch((e) => {
                     console.error(e)
