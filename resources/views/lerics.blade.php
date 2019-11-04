@@ -50,11 +50,22 @@
 
 @endsection
 @section('script')
-<script>    
+<script>
+    var config = {
+        // url: 'https://wordsapiv1.p.rapidapi.com/words/hatchback/typeOf',
+        
+    };
+
     // console.log(data);
     var leric = new Vue({
         el: "#lerics",
         data:{
+            headers: {
+                'Content-Type': 'application/octet-stream',
+                'x-rapidapi-host':'wordsapiv1.p.rapidapi.com',
+                'x-rapidapi-key':'b6b55ef453msh11a4bbdbe780fdcp1195d5jsnd41c26b0838b'
+            },
+
             init:false,
             words: {
                 count:0,
@@ -75,6 +86,20 @@
         },
 
         methods:{
+            wordsApi: function(){
+                axios.get('https://wordsapiv1.p.rapidapi.com/words/hatchback/typeOf',{'headers':{
+                    "content-type":"application/octet-stream",
+                    "x-rapidapi-host":"wordsapiv1.p.rapidapi.com",
+                    "x-rapidapi-key":"b6b55ef453msh11a4bbdbe780fdcp1195d5jsnd41c26b0838b"
+                }})
+                    .then((response)=>{
+                    console.log(response)
+                    })
+                    .catch((error)=>{
+                    console.log(error)
+                    })
+            },
+
             sendWordsToMail: function(){
                 var unknowWords = this.donKnowWords.donKnowWords
                 return axios.post('/lerics/sendWordsToMail', {unknowWords})
@@ -87,6 +112,7 @@
             },
 
             knowMethod: function(w){
+                // this.wordsApi()
                 axios.post('/lerics/storeWord', {word: w, status:1})
                 .then((response) => {
                     // console.log(response.data)
@@ -109,7 +135,7 @@
             donKnowMethod: function(w){
                 axios.post('/lerics/storeWord', {word: w, status:0})
                 .then((response) => {
-                    // console.log(response.data)
+                    console.log(response.data)
                 })
                 .catch((e) => {
                     console.error(e)

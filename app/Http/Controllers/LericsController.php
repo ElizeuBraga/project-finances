@@ -26,7 +26,17 @@ class LericsController extends Controller
 
     public function storeWord(Request $request){
         if (Leric::where('word', '=', $request->word)->count() > 0) {
-            //value exists
+            $word = Leric::where('word', '=', $request->word)->first();
+            $dots = $word->dots;
+            if($request->status == '1'){
+                $dots +=1;
+            }
+            if($request->status == '0'){
+                $dots -=1;   
+            }
+            if($dots <= 3){
+                $word->update(['dots' => $dots]);
+            }
         }else{
             $leric = new Leric;
             $leric->word = $request->word; 
@@ -42,11 +52,22 @@ class LericsController extends Controller
 
         for ($i=0; $i < count($l) ; $i++) {
             $element = null;
+            $dots = 0;
             if(in_array($l[$i], $leric_processed)){
-
+                
             }else{
-                $element = $l[$i];
-                array_push($leric_processed, $element);
+                if(Leric::where('word', '=', $l[$i])->count() > 0){
+                    $word = Leric::where('word', '=', $l[$i])->first();
+                    $dots = $word->dots;
+                    if($dots >= 3){
+                    }else{
+                        $element = $l[$i];
+                        array_push($leric_processed, $element);
+                    }
+                }else{
+                        $element = $l[$i];
+                        array_push($leric_processed, $element);
+                }
             }
         }
 

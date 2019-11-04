@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Leric extends Model
 {
-    protected $fillable = ['word', 'status'];
+    protected $fillable = ['word', 'status', 'dots'];
     //
 }
