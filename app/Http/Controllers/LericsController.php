@@ -8,6 +8,28 @@ use App\Leric;
 
 class LericsController extends Controller
 {
+    public function wordCount(){
+        $wordCount = Leric::count();
+
+        return response()->json($wordCount);
+    }
+
+    public function meningInWiki($word){
+        $response = \Unirest\Request::get("https://linguee-api.herokuapp.com/api?q='$word'&src=en&dst=pt");
+        $responseJson = json_decode($response->raw_body, true);
+        // dd($responseJson);
+        $translate = [];
+        if(array_key_exists('exact_matches', $responseJson)){
+            $translate = [
+                $responseJson['exact_matches'][0]['translations'][0]['text'],
+                $responseJson['exact_matches'][0]['translations'][0]['examples'][0]['source'],
+                $responseJson['exact_matches'][0]['translations'][0]['examples'][0]['target'],
+            ];
+        }
+        dd($responseJson);
+        return $translate;
+    }
+
     public function sendWordsToMail(Request $request){
             try {
                 $data = $request->unknowWords;
@@ -22,11 +44,30 @@ class LericsController extends Controller
                 //throw $th;
                 return response()->json($th);
             }
-    }
-
+        }
+        
     public function storeWord(Request $request){
+        $translate = $this->meningInWiki($request->word);
         if (Leric::where('word', '=', $request->word)->count() > 0) {
             $word = Leric::where('word', '=', $request->word)->first();
+            try {
+                //code...
+                $word->translate = $translate[0];
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+            try {
+                $word->english = $translate[1]; 
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+
+            try {
+                //code...
+                $word->portuguese = $translate[2]; 
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
             $dots = $word->dots;
             if($request->status == '1'){
                 $dots +=1;
@@ -38,18 +79,36 @@ class LericsController extends Controller
                 $word->update(['dots' => $dots]);
             }
         }else{
-            $leric = new Leric;
-            $leric->word = $request->word; 
-            $leric->status = $request->status; 
-            $leric->save();
+            $word = new Leric;
+            $word->word = $request->word; 
+            try {
+                //code...
+                $word->translate = $translate[0];
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+            try {
+                $word->english = $translate[1]; 
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+
+            try {
+                //code...
+                $word->portuguese = $translate[2]; 
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+
+            $word->save();
         }
 
         $wordCount = Leric::count();
         return response()->json($wordCount);
     }
 
-    public function process_leric($leric){
-        $le = str_word_count($leric, 1);
+    public function process_leric($word){
+        $le = str_word_count($word, 1);
         $l = array_map('strtolower', $le);
         $leric_processed = [];
 
@@ -94,7 +153,10 @@ class LericsController extends Controller
      */
     public function create()
     {
-        //
+        $all = Leric::where('dots', '=', 0)->get();
+
+        // dd($all);
+        return $all[0]->word;
     }
 
     /**

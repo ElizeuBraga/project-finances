@@ -51,120 +51,123 @@
 
 @endsection
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
 <script>
     var wordCount = {!!json_encode($wordCount)!!}
 
     // console.log(data);
-    var leric = new Vue({
-        el: "#lerics",
-        data:{
-            headers: {
-                'Content-Type': 'application/octet-stream',
-                'x-rapidapi-host':'wordsapiv1.p.rapidapi.com',
-                'x-rapidapi-key':'b6b55ef453msh11a4bbdbe780fdcp1195d5jsnd41c26b0838b'
-            },
+    // var leric = new Vue({
+    //     el: "#lerics",
+    //     data:{
+    //         headers: {
+    //             'Content-Type': 'application/octet-stream',
+    //             'x-rapidapi-host':'wordsapiv1.p.rapidapi.com',
+    //             'x-rapidapi-key':'b6b55ef453msh11a4bbdbe780fdcp1195d5jsnd41c26b0838b'
+    //         },
 
-            init:false,
-            words: {
-                count:0,
-                words: [],
-                wordCount: wordCount
-            },
-            knowWords: {
-                count: 0,
-                knowWords: []
-            },
-            donKnowWords: {
-                count:0,
-                donKnowWords: []
-            },
-            textarea:null
-        },
+    //         init:false,
+    //         words: {
+    //             count:0,
+    //             words: [],
+    //             wordCount: wordCount
+    //         },
+    //         knowWords: {
+    //             count: 0,
+    //             knowWords: []
+    //         },
+    //         donKnowWords: {
+    //             count:0,
+    //             donKnowWords: []
+    //         },
+    //         textarea:null
+    //     },
 
-        mounted: function(){
-        },
+    //     mounted: function(){
+    //     },
 
-        methods:{
-            wordsApi: function(){
-                axios.get('https://wordsapiv1.p.rapidapi.com/words/hatchback/typeOf',{'headers':{
-                    "content-type":"application/octet-stream",
-                    "x-rapidapi-host":"wordsapiv1.p.rapidapi.com",
-                    "x-rapidapi-key":"b6b55ef453msh11a4bbdbe780fdcp1195d5jsnd41c26b0838b"
-                }})
-                    .then((response)=>{
-                    console.log(response)
-                    })
-                    .catch((error)=>{
-                    console.log(error)
-                    })
-            },
+    //     methods:{
+    //         wordsApi: function(){
+    //             axios.get('https://wordsapiv1.p.rapidapi.com/words/hatchback/typeOf',{'headers':{
+    //                 "content-type":"application/octet-stream",
+    //                 "x-rapidapi-host":"wordsapiv1.p.rapidapi.com",
+    //                 "x-rapidapi-key":"b6b55ef453msh11a4bbdbe780fdcp1195d5jsnd41c26b0838b"
+    //             }})
+    //                 .then((response)=>{
+    //                 console.log(response)
+    //                 })
+    //                 .catch((error)=>{
+    //                 console.log(error)
+    //                 })
+    //         },
 
-            sendWordsToMail: function(){
-                var unknowWords = this.donKnowWords.donKnowWords
-                return axios.post('/lerics/sendWordsToMail', {unknowWords})
-                .then((response) => {
-                    // console.log(response.data)
-                    this.words.wordCount = response.data
-                })
-                .catch((e) => {
-                    console.error(e)
-                })
-            },
+    //         sendWordsToMail: function(){
+    //             var unknowWords = this.donKnowWords.donKnowWords
+    //             return axios.post('/lerics/sendWordsToMail', {unknowWords})
+    //             .then((response) => {
+    //                 // console.log(response.data)
+    //                 this.words.wordCount = response.data
+    //             })
+    //             .catch((e) => {
+    //                 console.error(e)
+    //             })
+    //         },
 
-            knowMethod: function(w){
-                // this.wordsApi()
-                axios.post('/lerics/storeWord', {word: w, status:1})
-                .then((response) => {
-                    // console.log(response.data)
-                    this.words.wordCount = response.data
-                })
-                .catch((e) => {
-                    console.error(e)
-                })
+    //         knowMethod: function(w){
+    //             // this.wordsApi()
+    //             axios.post('/lerics/storeWord', {word: w, status:1})
+    //             .then((response) => {
+    //                 // console.log(response.data)
+    //                 this.words.wordCount = response.data
+    //             })
+    //             .catch((e) => {
+    //                 console.error(e)
+    //             })
 
-                this.init = true
-                this.knowWords.knowWords.push(w);
-                this.knowWords.count +=1
-                this.words.count -= 1
-                var index = this.words.words.indexOf(w);
+    //             this.init = true
+    //             this.knowWords.knowWords.push(w);
+    //             this.knowWords.count +=1
+    //             this.words.count -= 1
+    //             var index = this.words.words.indexOf(w);
 
-                if (index > -1) {
-                    this.words.words.splice(index, 1);
-                }
-            },
+    //             if (index > -1) {
+    //                 this.words.words.splice(index, 1);
+    //             }
+    //         },
 
-            donKnowMethod: function(w){
-                axios.post('/lerics/storeWord', {word: w, status:0})
-                .then((response) => {
-                    console.log(response.data)
-                })
-                .catch((e) => {
-                    console.error(e)
-                })
+    //         donKnowMethod: function(w){
+    //             axios.post('/lerics/storeWord', {word: w, status:0})
+    //             .then((response) => {
+    //                 this.words.wordCount = response.data
+    //                 // console.log(response.data)
+    //             })
+    //             .catch((e) => {
+    //                 console.error(e)
+    //             })
 
-                this.init = true
-                this.donKnowWords.donKnowWords.push(w);
-                this.donKnowWords.count += 1
-                this.words.count -= 1
-                var index = this.words.words.indexOf(w);
+    //             this.init = true
+    //             this.donKnowWords.donKnowWords.push(w);
+    //             this.donKnowWords.count += 1
+    //             this.words.count -= 1
+    //             var index = this.words.words.indexOf(w);
 
-                if (index > -1) {
-                    this.words.words.splice(index, 1);
-                }
-            },
+    //             if (index > -1) {
+    //                 this.words.words.splice(index, 1);
+    //             }
+    //         },
 
-            myFunction: function(str){
-                this.textarea = null
-                return axios.post('/lerics', {leric:str})
-                .then((response) => {
-                    this.words.words = response.data
-                    this.words.count = this.words.words.length
-                })
-                .catch((e) => {
-                    console.error(e)
-                })
-            }
-        }
-    });
+    //         myFunction: function(str){
+    //             this.textarea = null
+    //             return axios.post('/lerics', {leric:str})
+    //             .then((response) => {
+    //                 this.words.words = response.data
+    //                 this.words.count = this.words.words.length
+    //             })
+    //             .catch((e) => {
+    //                 console.error(e)
+    //             })
+    //         }
+    //     }
+    // });
 </script>
 @endsection

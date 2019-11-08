@@ -49209,7 +49209,9 @@ module.exports = function(module) {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // window.Linguee = require('vue');
+// linguee = require('linguee');
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -49226,9 +49228,126 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+// import ApexCharts from 'apexcharts'
 
 var app = new Vue({
-  el: '#app'
+  el: "#app",
+  data: {
+    headers: {
+      'Content-Type': 'application/octet-stream',
+      'x-rapidapi-host': 'wordsapiv1.p.rapidapi.com',
+      'x-rapidapi-key': 'b6b55ef453msh11a4bbdbe780fdcp1195d5jsnd41c26b0838b'
+    },
+    init: false,
+    words: {
+      count: 0,
+      words: [],
+      wordCount: null
+    },
+    knowWords: {
+      count: 0,
+      knowWords: []
+    },
+    donKnowWords: {
+      count: 0,
+      donKnowWords: []
+    },
+    textarea: null
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('lerics/wordCount').then(function (response) {
+      _this.words.wordCount = response.data;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  },
+  methods: {
+    wordsApi: function wordsApi() {
+      axios.get('https://wordsapiv1.p.rapidapi.com/words/hatchback/typeOf', {
+        'headers': {
+          "content-type": "application/octet-stream",
+          "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
+          "x-rapidapi-key": "b6b55ef453msh11a4bbdbe780fdcp1195d5jsnd41c26b0838b"
+        }
+      }).then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    sendWordsToMail: function sendWordsToMail() {
+      var _this2 = this;
+
+      var unknowWords = this.donKnowWords.donKnowWords;
+      return axios.post('/lerics/sendWordsToMail', {
+        unknowWords: unknowWords
+      }).then(function (response) {
+        // console.log(response.data)
+        _this2.words.wordCount = response.data;
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    knowMethod: function knowMethod(w) {
+      var _this3 = this;
+
+      // this.wordsApi()
+      axios.post('/lerics/storeWord', {
+        word: w,
+        status: 1
+      }).then(function (response) {
+        // console.log(response.data)
+        _this3.words.wordCount = response.data;
+      })["catch"](function (e) {
+        console.error(e);
+      });
+      this.init = true;
+      this.knowWords.knowWords.push(w);
+      this.knowWords.count += 1;
+      this.words.count -= 1;
+      var index = this.words.words.indexOf(w);
+
+      if (index > -1) {
+        this.words.words.splice(index, 1);
+      }
+    },
+    donKnowMethod: function donKnowMethod(w) {
+      var _this4 = this;
+
+      axios.post('/lerics/storeWord', {
+        word: w,
+        status: 0
+      }).then(function (response) {
+        _this4.words.wordCount = response.data; // console.log(response.data)
+      })["catch"](function (e) {
+        console.error(e);
+      });
+      this.init = true;
+      this.donKnowWords.donKnowWords.push(w);
+      this.donKnowWords.count += 1;
+      this.words.count -= 1;
+      var index = this.words.words.indexOf(w);
+
+      if (index > -1) {
+        this.words.words.splice(index, 1);
+      }
+    },
+    myFunction: function myFunction(str) {
+      var _this5 = this;
+
+      this.textarea = null;
+      return axios.post('/lerics', {
+        leric: str
+      }).then(function (response) {
+        _this5.words.words = response.data;
+        _this5.words.count = _this5.words.words.length;
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    }
+  }
 });
 
 /***/ }),

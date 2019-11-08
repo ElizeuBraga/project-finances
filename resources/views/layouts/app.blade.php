@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{asset('/vendor/bootstrap/css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('/css/style.css')}}">
     <title>@yield('title')</title>
     <style>
         body{
@@ -70,19 +71,11 @@
     </nav>
         @yield('content')
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> --}}
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{{asset('/js/jquery-3.4.1.min.js')}}"></script>
+    <script src="{{asset('js/app.js')}}"></script>
     <script src="{{asset('/vendor/bootstrap/js/bootstrap.js')}}"></script>
     @yield('script')
-
-    {{-- <script>
-        var app = new Vue({
-            el: "#app",
-            data:{
-
-            }
-        });
-    </script> --}}
 </body>
 </html>
