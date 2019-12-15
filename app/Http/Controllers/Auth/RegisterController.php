@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use \Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -69,6 +70,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'phone' => $data['phone'],
             'password' => Hash::make($data['password']),
+            'api_token' => Str::random(60),
         ]);
     }
 }
