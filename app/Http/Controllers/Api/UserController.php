@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Auth;
 use Str;
+use App\User;
 use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
     public function login(Request $request){
 
+        // return response()->json($request);
         $credentials = request(['email', 'password']);
 
         if (! Auth::attempt($credentials)) {
@@ -37,7 +39,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+
+        return response()->json($user);
     }
 
     /**
@@ -48,7 +52,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->merge(['api_token' => Str::random(60), 'password' => bcrypt($request->password)]);
+        // return response()->json($request);
+        $user = User::create($request->all());
+        return response()->json($user, 200);
     }
 
     /**
