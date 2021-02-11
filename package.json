@@ -24,7 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "apexcharts": "^3.10.1",
+        "apexcharts": "^3.24.0",
         "bootstrap": "^4.3.1",
         "inputmask": "^4.0.9",
         "linguee": "^1.0.1",
